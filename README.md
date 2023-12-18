@@ -1,1 +1,1 @@
-# music-game-prototype
+# Musical Game Prototype
