@@ -3,8 +3,12 @@ extends Node2D
 signal key_pressed(index)
 
 @export var sprite_texture : Texture2D
+@export_range(0, 11) var pitch := 0.01:
+	set(new_value):
+		key_sound.pitch_scale = new_value
 @onready var sprite : Sprite2D = $Sprite
 @onready var rect : ColorRect = $Rect
+@onready var key_sound : AudioStreamPlayer = $KeySound
 
 # Used to change the touch_area collision accordingly to the note
 const NORMAL_Y_SIZE = 15
@@ -18,6 +22,7 @@ const COLLISION_X_OFFSET = 2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sprite.texture = sprite_texture
+	
 	
 	# Update collision size
 	var is_sharp = name.contains("#")
@@ -34,14 +39,15 @@ func _ready():
 		position_x += COLLISION_X_OFFSET / 2
 	rect.position.x = position_x
 	rect.position.y = selected_offset
-	print(note_idx)
 
 func press_key():
 	key_pressed.emit(get_index())
 	sprite.show()
+	key_sound.play()
 
 func release_key():
 	sprite.hide()
+	#key_sound.stop()
 
 func _on_rect_gui_input(event):
 	if event is InputEventMouseButton:

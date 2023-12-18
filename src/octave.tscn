@@ -18,50 +18,51 @@
 
 [node name="Octave" type="Node2D"]
 script = ExtResource("1_ysf8o")
+octave = -1
 
 [node name="BaseKeyboard" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_cdgpy")
 
-[node name="Keys2" type="Node2D" parent="."]
+[node name="Keys" type="Node2D" parent="."]
 
-[node name="C" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="C" parent="Keys" instance=ExtResource("15_lvmmh")]
 sprite_texture = ExtResource("2_mud5q")
 
-[node name="D" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="D" parent="Keys" instance=ExtResource("15_lvmmh")]
 sprite_texture = ExtResource("4_ftf1g")
 
-[node name="E" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="E" parent="Keys" instance=ExtResource("15_lvmmh")]
 sprite_texture = ExtResource("6_3j78i")
 
-[node name="F" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="F" parent="Keys" instance=ExtResource("15_lvmmh")]
 sprite_texture = ExtResource("7_mu11c")
 
-[node name="G" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="G" parent="Keys" instance=ExtResource("15_lvmmh")]
 sprite_texture = ExtResource("9_p5613")
 
-[node name="A" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="A" parent="Keys" instance=ExtResource("15_lvmmh")]
 sprite_texture = ExtResource("11_tl0d5")
 
-[node name="B" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="B" parent="Keys" instance=ExtResource("15_lvmmh")]
 sprite_texture = ExtResource("13_6u1gt")
 
-[node name="C#" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="C#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 sprite_texture = ExtResource("3_73cit")
 
-[node name="D#" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="D#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 sprite_texture = ExtResource("5_xuqup")
 
-[node name="F#" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="F#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 sprite_texture = ExtResource("8_4c1s2")
 
-[node name="G#" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="G#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 sprite_texture = ExtResource("10_acvo7")
 
-[node name="A#" parent="Keys2" instance=ExtResource("15_lvmmh")]
+[node name="A#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 sprite_texture = ExtResource("12_gnwfg")
