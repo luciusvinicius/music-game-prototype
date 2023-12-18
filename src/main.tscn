@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://ckvp03vl0wafd"]
 
-[ext_resource type="PackedScene" uid="uid://b4s6b7s8my2f7" path="res://src/octave.tscn" id="1_wmp3e"]
+[ext_resource type="PackedScene" uid="uid://046pnbte375i" path="res://src/keyboard.tscn" id="1_yi20y"]
 
 [node name="Main" type="Node"]
 
-[node name="Octave" parent="." instance=ExtResource("1_wmp3e")]
-position = Vector2(577, 531)
+[node name="Keyboard" parent="." instance=ExtResource("1_yi20y")]
+position = Vector2(415, 486)
 scale = Vector2(10, 10)
+base_octave = -1
