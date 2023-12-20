@@ -1,6 +1,6 @@
 extends Control
 
-@onready var beat = $Beat
+@onready var beat_manager = $Beat
 @onready var bpm : Label = $PanelContainer/VBoxContainer/BPM
 @onready var beats = $PanelContainer/VBoxContainer/Beats
 
@@ -13,22 +13,17 @@ func _ready():
 		beat_button.pressed.connect(_on_beat_button_pressed.bind(beat.name)) # Add "beat.name" as an extra argument
 		beats.add_child(beat_button)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_beat_button_pressed(beat_name: String):
-	beat.play(beat_name)
+	beat_manager.play(beat_name)
 
 func _on_beat_1_pressed():
-	beat.play("")
+	beat_manager.play("")
 
 
 func _on_bpm_slider_value_changed(value):
-	beat.bpm = value
+	beat_manager.bpm = value
 	bpm.text = "BPM: %d" % value
 
 
 func _on_no_beat_pressed():
-	beat.stop()
+	beat_manager.stop()

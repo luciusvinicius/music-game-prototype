@@ -14,17 +14,17 @@ func get_beat(beat_name: String) -> Beat:
 		push_error("Beat of name %s not found!" % beat_name)
 		return null
 	var beat = possible_beats[0]
-	var beat_instance = Beat.new(beat.name, beat.measures, beat.notes)
+	var beat_instance = Beat.new(beat.name, beat.measure, beat.notes)
 	return beat_instance
 
 class Beat:
 	var beat_name:String
-	var measures:int
+	var measure:int
 	var notes:Array
 	
-	func _init(_name:String, _measures:int, _notes:Array):
+	func _init(_name:String, _measure:int, _notes:Array):
 		beat_name = _name
-		measures = _measures
+		measure = _measure
 		notes = _notes
 	
 
@@ -32,7 +32,7 @@ class Beat:
 const BEATS = [
 	{
 		"name": "Beat 1",
-		"measures": 4,
+		"measure": 4,
 		"notes": [
 			{
 				"stream": KICK,
