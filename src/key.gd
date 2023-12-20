@@ -12,6 +12,7 @@ signal key_pressed(index)
 @onready var rect : ColorRect = $Rect
 @onready var key_sound : AudioStreamPlayer = $KeySound
 
+
 # Used to change the touch_area collision accordingly to the note
 const NORMAL_Y_SIZE = 15.0
 const NORMAL_Y_POSITION = -6.0
@@ -20,6 +21,9 @@ const SHARP_Y_SIZE = 8.5
 const COLLISION_X_SIZE = 3.0
 const COLLISION_X_POSITION = -12.5
 const COLLISION_X_OFFSET = 2.0
+
+# Other variables
+var mouse_hovered := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -54,6 +58,21 @@ func release_key():
 	sprite.hide()
 	if not sustain: key_sound.stop()
 
+# Update audio ----------------------
+func _update_instrument(instrument):
+	key_sound.stream = instrument.stream
+
+func _update_sustain(value):
+	sustain = value
+
+# Input Detection --------------------
+func _unhandled_input(event):
+	if not mouse_hovered: return
+	if event.is_action_pressed("Select"):
+		press_key()
+	elif event.is_action_released("Select"):
+		release_key()
+
 func _on_rect_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -62,8 +81,8 @@ func _on_rect_gui_input(event):
 			else:
 				release_key()
 
-func _update_instrument(instrument):
-	key_sound.stream = instrument.stream
+func _on_rect_mouse_entered():
+	mouse_hovered = true
 
-func _update_sustain(value):
-	sustain = value
+func _on_rect_mouse_exited():
+	mouse_hovered = false
