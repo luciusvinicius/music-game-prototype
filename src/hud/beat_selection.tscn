@@ -28,6 +28,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_k6q0s")
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Beats"
+horizontal_alignment = 1
+
 [node name="BPMSlider" type="HSlider" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0

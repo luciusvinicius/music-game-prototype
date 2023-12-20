@@ -25,6 +25,10 @@ const COLLISION_X_OFFSET = 2.0
 func _ready():
 	sprite.texture = sprite_texture
 	
+	# Connect to change instrument signal
+	SignalManager.selected_instrument.connect(_update_instrument)
+	SignalManager.changed_sustain.connect(_update_sustain)
+	
 	# Update collision size
 	var is_sharp = name.contains("#")
 	var selected_offset = NORMAL_Y_POSITION + SHARP_Y_OFFSET if is_sharp else NORMAL_Y_POSITION
@@ -57,3 +61,9 @@ func _on_rect_gui_input(event):
 				press_key()
 			else:
 				release_key()
+
+func _update_instrument(instrument):
+	key_sound.stream = instrument.stream
+
+func _update_sustain(value):
+	sustain = value

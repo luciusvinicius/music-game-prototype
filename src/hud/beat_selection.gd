@@ -6,7 +6,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Create Beats button
+	# Create Beats buttons
 	for beat in Beats.BEATS:
 		var beat_button = Button.new()
 		beat_button.text = beat.name
@@ -19,11 +19,9 @@ func _on_beat_button_pressed(beat_name: String):
 func _on_beat_1_pressed():
 	beat_manager.play("")
 
-
 func _on_bpm_slider_value_changed(value):
 	beat_manager.bpm = value
 	bpm.text = "BPM: %d" % value
-
 
 func _on_no_beat_pressed():
 	beat_manager.stop()

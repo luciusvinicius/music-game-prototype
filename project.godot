@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 Consts="*res://src/autoloads/consts.gd"
 Beats="*res://src/autoloads/beats.gd"
+Instruments="*res://src/autoloads/instruments.gd"
+SignalManager="*res://src/autoloads/signal_manager.gd"
 
 [rendering]
 
