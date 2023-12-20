@@ -21,8 +21,8 @@ script = ExtResource("1_k5wqm")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 157.0
-offset_bottom = 208.0
+offset_right = 197.0
+offset_bottom = 118.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_k6q0s")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
@@ -32,25 +32,26 @@ layout_mode = 2
 layout_mode = 2
 min_value = 1.0
 max_value = 300.0
-value = 1.0
+value = 60.0
 
 [node name="BPM" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "BPM: 60"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+[node name="Beats" type="GridContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 30
 columns = 2
 
-[node name="No Beat" type="Button" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="No Beat" type="Button" parent="PanelContainer/VBoxContainer/Beats"]
 layout_mode = 2
 text = "No Beat"
 
-[node name="Beat 1" type="Button" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="Beat 1" type="Button" parent="PanelContainer/VBoxContainer/Beats"]
 layout_mode = 2
 text = "Beat 1"
 
 [connection signal="value_changed" from="PanelContainer/VBoxContainer/BPMSlider" to="." method="_on_bpm_slider_value_changed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/GridContainer/Beat 1" to="." method="_on_beat_1_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Beats/No Beat" to="." method="_on_no_beat_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Beats/Beat 1" to="." method="_on_beat_1_pressed"]
