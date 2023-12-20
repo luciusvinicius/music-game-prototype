@@ -1,7 +1,8 @@
 extends Node
 
-const FLUTE = preload("res://assets/c_flute.mp3")
-const PIANO = preload("res://assets/c_piano.mp3")
+const FLUTE = preload("res://assets/instruments/c_flute.mp3")
+const PIANO = preload("res://assets/instruments/c_piano.mp3")
+const STEEL_GUITAR = preload("res://assets/instruments/c_steel_guitar.mp3")
 
 const INSTRUMENTS = [
 	{
@@ -11,6 +12,10 @@ const INSTRUMENTS = [
 	{
 		"name": "Flute",
 		"stream": FLUTE
+	},
+	{
+		"name": "Steel Guitar",
+		"stream": STEEL_GUITAR
 	}
 ]
 
