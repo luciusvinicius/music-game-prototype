@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4yieqqp8wl6r"]
+
+[ext_resource type="Script" path="res://src/hud/beat_selection.gd" id="1_k5wqm"]
+[ext_resource type="PackedScene" uid="uid://bb2m0wqd77ete" path="res://src/beat/beat.tscn" id="2_a7dpe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6q0s"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+shadow_size = 5
+shadow_offset = Vector2(10, 10)
+
+[node name="BeatSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_k5wqm")
+
+[node name="Beat" parent="." instance=ExtResource("2_a7dpe")]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 157.0
+offset_bottom = 208.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_k6q0s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="BPMSlider" type="HSlider" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 300.0
+value = 1.0
+
+[node name="BPM" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "BPM: 60"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 30
+columns = 2
+
+[node name="No Beat" type="Button" parent="PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "No Beat"
+
+[node name="Beat 1" type="Button" parent="PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Beat 1"
+
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/BPMSlider" to="." method="_on_bpm_slider_value_changed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/GridContainer/Beat 1" to="." method="_on_beat_1_pressed"]
