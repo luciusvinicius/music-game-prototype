@@ -53,6 +53,7 @@ func press_key():
 	key_pressed.emit(get_index())
 	sprite.show()
 	key_sound.play()
+	SignalManager.key_pressed.emit(self)
 
 func release_key():
 	sprite.hide()

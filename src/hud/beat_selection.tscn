@@ -33,16 +33,23 @@ layout_mode = 2
 text = "Beats"
 horizontal_alignment = 1
 
+[node name="BPM" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "BPM: 60"
+
 [node name="BPMSlider" type="HSlider" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 300.0
 value = 60.0
 
-[node name="BPM" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="MelodiesLoop" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "BPM: 60"
-horizontal_alignment = 1
+text = "Melodies Looped: 0"
+
+[node name="MelodiesLoopSlide" type="HSlider" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 4.0
 
 [node name="Beats" type="GridContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -54,4 +61,5 @@ layout_mode = 2
 text = "No Beat"
 
 [connection signal="value_changed" from="PanelContainer/VBoxContainer/BPMSlider" to="." method="_on_bpm_slider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/MelodiesLoopSlide" to="." method="_on_melodies_loop_slide_value_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Beats/No Beat" to="." method="_on_no_beat_pressed"]

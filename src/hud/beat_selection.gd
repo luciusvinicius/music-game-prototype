@@ -3,6 +3,7 @@ extends Control
 @onready var beat_manager = $Beat
 @onready var bpm : Label = $PanelContainer/VBoxContainer/BPM
 @onready var beats = $PanelContainer/VBoxContainer/Beats
+@onready var melodies_loop = $PanelContainer/VBoxContainer/MelodiesLoop
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,3 +26,7 @@ func _on_bpm_slider_value_changed(value):
 
 func _on_no_beat_pressed():
 	beat_manager.stop()
+
+func _on_melodies_loop_slide_value_changed(value):
+	SignalManager.melodies_in_loop_changed.emit(value)
+	melodies_loop.text = "Melodies Looped: %d" % value

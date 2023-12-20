@@ -9,10 +9,6 @@ extends Node
 		timer.wait_time = beat_length
 		bpm = new_value
 
-# Signals
-signal beat_played
-signal measure_played
-
 # Vars
 var beat_length
 var current_beat 
@@ -53,5 +49,5 @@ func _on_timer_timeout():
 	setup_next_note()
 	
 	# Emit signals
-	beat_played.emit()
-	if current_note_idx == 0: measure_played.emit()
+	SignalManager.beat_played.emit()
+	if current_note_idx == 0: SignalManager.measure_played.emit()
