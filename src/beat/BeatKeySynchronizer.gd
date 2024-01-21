@@ -1,7 +1,7 @@
 extends Node
 
 # Queue = [Time1, Time2]
-# Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, have_played: false} # Duration maybe solved another day
+# Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, has_played: false, has_release: false} # Duration maybe solved another day
 
 ## -- || Vars || --
 var queue : Array[Dictionary] = []
@@ -13,14 +13,16 @@ var bpm := 60.0
 
 ### --- || Code || ---
 
+## -- || Main Loop || --
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#SignalManager.beat_played.connect(_read_beat)
 	SignalManager.update_measure.connect(_update_measure)
 	SignalManager.measure_played.connect(_reset_loop)
-	SignalManager.key_pressed.connect(_read_key_press)
 	SignalManager.melodies_in_loop_changed.connect(_update_measures_looped)
 	SignalManager.bpm_updated.connect(_update_bpm)
+	SignalManager.key_pressed.connect(_read_key_press)
+	SignalManager.key_released.connect(_read_key_release)
 
 func _update_measure(val):
 	measure = val
@@ -37,7 +39,8 @@ func _reset_loop():
 	
 	# Renew previously played notes
 	for key in queue:
-		key.have_played = false
+		key.has_played = false
+		key.has_release = false
 
 
 func _update_measures_looped(value):
@@ -54,21 +57,43 @@ func _process(delta):
 	time += delta * bpm
 	
 	# Verify if there are notes on the queue to play
-	var possible_notes = queue.filter(func(key): return key.time < time and loop_number - key.loop > 0)
-	var notes_to_play = possible_notes.filter(func(key): return not key.have_played)
+	var possible_notes = queue.filter(func(key): return time > key.time \
+	 and loop_number - key.loop > 0) # Needs second condition to not play immediately
 	
-	# Play every note in time
+	var notes_to_play = possible_notes.filter(func(key): return not key.has_played)
+	var notes_to_release = possible_notes.filter(func(key): return time > key.time + key.duration \
+	 and not key.has_release)
+	
+	# Play/release every note in time
 	for key in notes_to_play:
 		key.note.press_key(true) # Ignore emited signal
-		key.have_played = true
+		key.has_played = true
+	
+	for key in notes_to_release:
+		key.note.release_key(true)
+		key.has_released = true
 
-# Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, have_played: false} # Duration maybe solved another day
+
+## -- || Key Inputs || --
+
+# Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, has_played: false} # Duration maybe solved another day
 func _read_key_press(key):
 	var note = {}
 	note.loop = loop_number
 	note.time = time
 	note.note = key
 	note.duration = 0.0 # TODO
-	note.have_played = false
+	note.has_played = false
+	note.has_release = false
 	queue.append(note)
 
+func _read_key_release(key):
+	# TODO doesn't work for notes that relase after loop i think
+	var notes = queue.filter(func(k): return k.note == key and k.duration == 0.0) # Only one of those can exist
+	
+	if notes.size() != 1:
+		print("Fodeu")
+	
+	var note = notes[0]
+	note.duration = time - note.time
+	

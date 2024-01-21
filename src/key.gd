@@ -57,9 +57,12 @@ func press_key(ignore_signal := false):
 	# Used in note loops for instance
 	if not ignore_signal: SignalManager.key_pressed.emit(self)
 
-func release_key():
+func release_key(ignore_signal := false):
 	sprite.hide()
 	if not sustain: key_sound.stop()
+	
+	# Used in note loops for instance
+	if not ignore_signal: SignalManager.key_released.emit(self)
 
 # Update audio ----------------------
 func _update_instrument(instrument):
