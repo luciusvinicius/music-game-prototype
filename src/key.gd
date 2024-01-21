@@ -49,11 +49,13 @@ func _ready():
 	rect.position.x = position_x
 	rect.position.y = selected_offset
 
-func press_key():
+func press_key(ignore_signal := false):
 	key_pressed.emit(get_index())
 	sprite.show()
 	key_sound.play()
-	SignalManager.key_pressed.emit(self)
+	
+	# Used in note loops for instance
+	if not ignore_signal: SignalManager.key_pressed.emit(self)
 
 func release_key():
 	sprite.hide()
