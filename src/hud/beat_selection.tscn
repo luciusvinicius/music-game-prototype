@@ -45,7 +45,7 @@ value = 60.0
 
 [node name="MelodiesLoop" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Melodies Looped: 0"
+text = "Measures Looped: 0"
 
 [node name="MelodiesLoopSlide" type="HSlider" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
