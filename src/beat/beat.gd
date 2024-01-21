@@ -1,53 +1,51 @@
 extends Node
 
-@onready var timer : Timer = $Timer
+## -- || Nodes || --
 @onready var audio : AudioStreamPlayer = $Audio
 
-@export var bpm = 60:
-	set(new_value):
-		beat_length = 60 / new_value
-		timer.wait_time = beat_length
-		bpm = new_value
-
-# Vars
-var beat_length
+## -- || Vars || --
 var current_beat 
 var current_note_idx := 0
+var time := 0.0
+var reseted_idx := false
+@export var bpm := 60.0:
+	set(new_value):
+		bpm = new_value
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	beat_length = 60 / bpm
+
+func _process(delta):
+	if bpm == 0.0 or current_beat == null: return
+	
+	var current_note = current_beat.notes[current_note_idx]
+	time += delta
+	
+	# If note should be played
+	if time * bpm >= current_note.time and not reseted_idx:
+		play_note(current_note)
+		reseted_idx = setup_next_note()
+	
+	# Reset beat loop
+	if time * bpm >= current_beat.measure * 60.0:
+		time -= current_beat.measure * 60.0 / bpm
+		reseted_idx = false
 
 func play(beat_name: String):
 	current_beat = Beats.get_beat(beat_name)
 	current_note_idx = -1
 	setup_next_note()
-	timer.start()
 
 func stop():
-	timer.stop()
+	pass
 
-func setup_next_note():
+func setup_next_note() -> bool:
 	# Update indexes
-	var current_note = current_beat.notes[current_note_idx]
 	current_note_idx = (current_note_idx + 1) % current_beat.notes.size()
-	var next_note = current_beat.notes[current_note_idx]
-	
-	# Update wait time for timer
-	var wait_time
-	if next_note.time == 0:
-		wait_time = beat_length * (current_beat.measure * 60 - current_note.time) / 60.0 # measure * 60 is the upper limit (240 for 4, 180 for 3, etc...)
-	else:
-		wait_time = beat_length * (next_note.time - current_note.time) / 60.0
-	timer.wait_time = wait_time
-	
-func _on_timer_timeout():
-	# Play audio and create the setup for the next one
-	var next_note = current_beat.notes[current_note_idx]
-	audio.stream = next_note.stream	
+	var current_note = current_beat.notes[current_note_idx]
+	return current_note_idx == 0 # Returns if the index should be reseted
+
+func play_note(note):
+	audio.stream = note.stream	
 	audio.play()
-	setup_next_note()
-	
-	# Emit signals
 	SignalManager.beat_played.emit()
 	if current_note_idx == 0: SignalManager.measure_played.emit()
+

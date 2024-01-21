@@ -21,6 +21,7 @@ grow_vertical = 2
 script = ExtResource("1_qbxci")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_right = 135.0
 offset_bottom = 98.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2ft4p")
