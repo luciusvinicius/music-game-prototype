@@ -2,8 +2,6 @@ extends Node2D
 
 signal key_pressed(index)
 
-
-@onready var sprite : Sprite2D = $Sprite #TODO: put the sprite here instead of everything on the "Octave" scene
 @onready var pressed_sprite : Sprite2D = $PressedSprite
 @onready var rect : ColorRect = $Rect
 @onready var key_sound : AudioStreamPlayer = $KeySound
@@ -11,7 +9,6 @@ signal key_pressed(index)
 ### -- || Vars || --
 
 ## -- || Exports || --
-@export var sprite_texture : Texture2D
 @export var pressed_sprite_texture : Texture2D
 @export var sustain := true
 @export_range(0, 11) var pitch := 0.01:
@@ -30,12 +27,14 @@ const COLLISION_X_OFFSET = 2.0
 
 ## -- || Logic || --
 var mouse_hovered := false
+@onready var automatic_pressed_sprite_texture : Texture2D = load("res://assets/imgs/Notes/" \
+ + name + "-auto.png") # Texture for presses not made by the player
 
 ### -- || Main Code || --
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pressed_sprite.texture = sprite_texture
+	pressed_sprite.texture = pressed_sprite_texture
 	
 	# Connect to change instrument signal
 	SignalManager.selected_instrument.connect(_update_instrument)
@@ -57,13 +56,26 @@ func _ready():
 	rect.position.x = position_x
 	rect.position.y = selected_offset
 
+## -- || Presses/Releases || --
 func press_key(ignore_signal := false):
 	key_pressed.emit(get_index())
 	pressed_sprite.show()
 	key_sound.play()
 	
 	# Used in automatic note press/release (note loops for instance)
-	if not ignore_signal: SignalManager.key_pressed.emit(self)
+	if not ignore_signal: 
+		SignalManager.key_pressed.emit(self)
+		
+		# Update to red key
+		if pressed_sprite.texture != pressed_sprite_texture:
+			pressed_sprite.texture = pressed_sprite_texture
+
+func automatic_press_key():
+	# Update pressed color
+	if pressed_sprite.texture != automatic_pressed_sprite_texture:
+		pressed_sprite.texture = automatic_pressed_sprite_texture
+	
+	press_key(true)
 
 func release_key(ignore_signal := false):
 	pressed_sprite.hide()

@@ -2,19 +2,19 @@
 
 [ext_resource type="Script" path="res://src/octave.gd" id="1_ysf8o"]
 [ext_resource type="Texture2D" uid="uid://ffxl64exltlb" path="res://assets/imgs/keyboard.png" id="2_ljxt7"]
-[ext_resource type="Texture2D" uid="uid://dpro5wg6sih8i" path="res://assets/imgs/C.png" id="4_urnp7"]
-[ext_resource type="Texture2D" uid="uid://40g0k648ochd" path="res://assets/imgs/D.png" id="5_3nv2h"]
-[ext_resource type="Texture2D" uid="uid://dsmtj4uc014f" path="res://assets/imgs/E.png" id="6_hp3q3"]
-[ext_resource type="Texture2D" uid="uid://ck5thqe3wuoa7" path="res://assets/imgs/F.png" id="7_mysix"]
-[ext_resource type="Texture2D" uid="uid://cxhto6snajpb7" path="res://assets/imgs/G.png" id="8_gducm"]
-[ext_resource type="Texture2D" uid="uid://du3xwql13ec6t" path="res://assets/imgs/A.png" id="9_oji3i"]
-[ext_resource type="Texture2D" uid="uid://v3jhxprw3gfr" path="res://assets/imgs/B.png" id="10_0fqv6"]
-[ext_resource type="Texture2D" uid="uid://dgc2ob0mmdgbo" path="res://assets/imgs/C#.png" id="11_nqf4e"]
-[ext_resource type="Texture2D" uid="uid://d2ukafj76mgj7" path="res://assets/imgs/D#.png" id="12_c5lhj"]
-[ext_resource type="Texture2D" uid="uid://ugxmwqrdolbf" path="res://assets/imgs/F#.png" id="13_ldasf"]
-[ext_resource type="Texture2D" uid="uid://df7dkrabqdmlc" path="res://assets/imgs/G#.png" id="14_tpkjg"]
+[ext_resource type="Texture2D" uid="uid://dpro5wg6sih8i" path="res://assets/imgs/Notes/C.png" id="4_r4r5g"]
+[ext_resource type="Texture2D" uid="uid://40g0k648ochd" path="res://assets/imgs/Notes/D.png" id="5_1s6lo"]
+[ext_resource type="Texture2D" uid="uid://dsmtj4uc014f" path="res://assets/imgs/Notes/E.png" id="6_x6esj"]
+[ext_resource type="Texture2D" uid="uid://ck5thqe3wuoa7" path="res://assets/imgs/Notes/F.png" id="7_x2fl2"]
+[ext_resource type="Texture2D" uid="uid://cxhto6snajpb7" path="res://assets/imgs/Notes/G.png" id="8_yepif"]
+[ext_resource type="Texture2D" uid="uid://du3xwql13ec6t" path="res://assets/imgs/Notes/A.png" id="9_vr4rw"]
+[ext_resource type="Texture2D" uid="uid://v3jhxprw3gfr" path="res://assets/imgs/Notes/B.png" id="10_us7jo"]
+[ext_resource type="Texture2D" uid="uid://dgc2ob0mmdgbo" path="res://assets/imgs/Notes/C#.png" id="11_23gt4"]
+[ext_resource type="Texture2D" uid="uid://d2ukafj76mgj7" path="res://assets/imgs/Notes/D#.png" id="12_owuvt"]
+[ext_resource type="Texture2D" uid="uid://ugxmwqrdolbf" path="res://assets/imgs/Notes/F#.png" id="13_l7jqg"]
+[ext_resource type="Texture2D" uid="uid://df7dkrabqdmlc" path="res://assets/imgs/Notes/G#.png" id="14_gqj70"]
 [ext_resource type="PackedScene" uid="uid://dga5hmwjxmwxb" path="res://src/key.tscn" id="15_lvmmh"]
-[ext_resource type="Texture2D" uid="uid://bvt04i36vf2w8" path="res://assets/imgs/A#.png" id="15_s6dwk"]
+[ext_resource type="Texture2D" uid="uid://bvt04i36vf2w8" path="res://assets/imgs/Notes/A#.png" id="15_us5t1"]
 
 [node name="Octave" type="Node2D"]
 script = ExtResource("1_ysf8o")
@@ -27,42 +27,42 @@ texture = ExtResource("2_ljxt7")
 [node name="Keys" type="Node2D" parent="."]
 
 [node name="C" parent="Keys" instance=ExtResource("15_lvmmh")]
-sprite_texture = ExtResource("4_urnp7")
+pressed_sprite_texture = ExtResource("4_r4r5g")
 
 [node name="D" parent="Keys" instance=ExtResource("15_lvmmh")]
-sprite_texture = ExtResource("5_3nv2h")
+pressed_sprite_texture = ExtResource("5_1s6lo")
 
 [node name="E" parent="Keys" instance=ExtResource("15_lvmmh")]
-sprite_texture = ExtResource("6_hp3q3")
+pressed_sprite_texture = ExtResource("6_x6esj")
 
 [node name="F" parent="Keys" instance=ExtResource("15_lvmmh")]
-sprite_texture = ExtResource("7_mysix")
+pressed_sprite_texture = ExtResource("7_x2fl2")
 
 [node name="G" parent="Keys" instance=ExtResource("15_lvmmh")]
-sprite_texture = ExtResource("8_gducm")
+pressed_sprite_texture = ExtResource("8_yepif")
 
 [node name="A" parent="Keys" instance=ExtResource("15_lvmmh")]
-sprite_texture = ExtResource("9_oji3i")
+pressed_sprite_texture = ExtResource("9_vr4rw")
 
 [node name="B" parent="Keys" instance=ExtResource("15_lvmmh")]
-sprite_texture = ExtResource("10_0fqv6")
+pressed_sprite_texture = ExtResource("10_us7jo")
 
 [node name="C#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
-sprite_texture = ExtResource("11_nqf4e")
+pressed_sprite_texture = ExtResource("11_23gt4")
 
 [node name="D#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
-sprite_texture = ExtResource("12_c5lhj")
+pressed_sprite_texture = ExtResource("12_owuvt")
 
 [node name="F#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
-sprite_texture = ExtResource("13_ldasf")
+pressed_sprite_texture = ExtResource("13_l7jqg")
 
 [node name="G#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
-sprite_texture = ExtResource("14_tpkjg")
+pressed_sprite_texture = ExtResource("14_gqj70")
 
 [node name="A#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
-sprite_texture = ExtResource("15_s6dwk")
+pressed_sprite_texture = ExtResource("15_us5t1")

@@ -66,7 +66,7 @@ func _process(delta):
 	
 	# Play/release every note in time
 	for key in notes_to_play:
-		key.note.press_key(true) # Ignore emited signal
+		key.note.automatic_press_key() # Ignore emited signal
 		key.has_played = true
 	
 	for key in notes_to_release:
