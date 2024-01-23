@@ -1,7 +1,7 @@
 extends Node
 
 # Queue = [Time1, Time2]
-# Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, has_played: false, has_release: false} # Duration maybe solved another day
+# Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, has_played: false, has_released: false} # Duration maybe solved another day
 
 ## -- || Vars || --
 var queue : Array[Dictionary] = []
@@ -40,7 +40,7 @@ func _reset_loop():
 	# Renew previously played notes
 	for key in queue:
 		key.has_played = false
-		key.has_release = false
+		key.has_released = false
 
 
 func _update_measures_looped(value):
@@ -62,7 +62,7 @@ func _process(delta):
 	
 	var notes_to_play = possible_notes.filter(func(key): return not key.has_played)
 	var notes_to_release = possible_notes.filter(func(key): return time > key.time + key.duration \
-	 and not key.has_release)
+	 and not key.has_released)
 	
 	# Play/release every note in time
 	for key in notes_to_play:
@@ -71,7 +71,7 @@ func _process(delta):
 	
 	for key in notes_to_release:
 		key.note.release_key(true)
-		key.has_released = true
+		key.has_releasedd = true
 
 
 ## -- || Key Inputs || --
@@ -84,7 +84,8 @@ func _read_key_press(key):
 	note.note = key
 	note.duration = 0.0 # TODO
 	note.has_played = false
-	note.has_release = false
+	note.has_released = false
+	
 	queue.append(note)
 
 func _read_key_release(key):
@@ -94,6 +95,10 @@ func _read_key_release(key):
 	if notes.size() != 1:
 		print("Fodeu")
 	
-	var note = notes[0]
-	note.duration = time - note.time
-	
+	if notes.size() == 1:
+		var note = notes[0]
+		var note_duration = time - note.time
+		# If note would overflow, cap it at the maximum time
+		if note_duration < 0:
+			note_duration = (60 * measure) - note.time
+		note.duration = note_duration

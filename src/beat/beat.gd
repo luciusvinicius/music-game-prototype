@@ -41,7 +41,8 @@ func play(beat_name: String):
 	setup_next_note()
 
 func stop():
-	pass
+	audio.stop()
+	current_beat = null
 
 func setup_next_note() -> bool:
 	# Update indexes

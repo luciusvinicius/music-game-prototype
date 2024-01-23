@@ -29,4 +29,4 @@ func _on_no_beat_pressed():
 
 func _on_melodies_loop_slide_value_changed(value):
 	SignalManager.melodies_in_loop_changed.emit(value)
-	melodies_loop.text = "Melodies Looped: %d" % value
+	melodies_loop.text = "Measures Looped: %d" % value

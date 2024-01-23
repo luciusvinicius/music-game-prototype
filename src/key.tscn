@@ -9,6 +9,8 @@ data = PackedByteArray(255, 251, 144, 4, 0, 12, 130, 149, 49, 203, 3, 12, 28, 17
 script = ExtResource("1_flamm")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="PressedSprite" type="Sprite2D" parent="."]
 visible = false
 
 [node name="Rect" type="ColorRect" parent="."]

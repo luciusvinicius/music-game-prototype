@@ -22,6 +22,10 @@ Beats="*res://src/autoloads/beats.gd"
 Instruments="*res://src/autoloads/instruments.gd"
 SignalManager="*res://src/autoloads/signal_manager.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 Select={
