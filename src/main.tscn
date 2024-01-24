@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckvp03vl0wafd"]
+[gd_scene load_steps=6 format=3 uid="uid://ckvp03vl0wafd"]
 
 [ext_resource type="PackedScene" uid="uid://046pnbte375i" path="res://src/keyboard.tscn" id="1_yi20y"]
 [ext_resource type="PackedScene" uid="uid://c4yieqqp8wl6r" path="res://src/hud/beat_selection.tscn" id="2_hr8k1"]
 [ext_resource type="PackedScene" uid="uid://ckjbxfq57vg5f" path="res://src/hud/instrument_selection.tscn" id="3_j4p1w"]
 [ext_resource type="PackedScene" uid="uid://ciuwdyhjoj0cl" path="res://src/beat/beat_key_synchronizer.tscn" id="4_21lxm"]
+[ext_resource type="PackedScene" uid="uid://b8iw5bkiu8foh" path="res://src/npc/npc.tscn" id="5_by0su"]
 
 [node name="Main" type="Node"]
 
@@ -27,3 +28,6 @@ offset_right = -597.0
 offset_bottom = -771.0
 
 [node name="BeatKeySynchronizer" parent="." instance=ExtResource("4_21lxm")]
+
+[node name="NPC" parent="." instance=ExtResource("5_by0su")]
+position = Vector2(-252, 9)

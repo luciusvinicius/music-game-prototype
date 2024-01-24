@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://clhyab4f2j1lf"]
+
+[ext_resource type="Texture2D" uid="uid://bokgkrq3omla3" path="res://assets/imgs/Balloon.png" id="1_h7gq3"]
+[ext_resource type="Script" path="res://src/npc/speech_balloon.gd" id="1_yvjs1"]
+[ext_resource type="Theme" uid="uid://gctdgb68tgpo" path="res://src/themes/balloon.tres" id="2_xai45"]
+
+[node name="SpeechBalloon" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1080.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yvjs1")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_h7gq3")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer2"]
+layout_mode = 2
+theme = ExtResource("2_xai45")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LetterDisplayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FinishTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]
+[connection signal="timeout" from="FinishTimer" to="." method="_on_finish_timer_timeout"]
