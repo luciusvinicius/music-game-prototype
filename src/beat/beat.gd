@@ -14,8 +14,6 @@ var reseted_idx := false # Avoids playing note with time = 0 after playing last 
 		SignalManager.bpm_updated.emit(bpm)
 		reset()
 
-
-
 ### --- || Code || ---
 func _process(delta):
 	if bpm == 0.0 or current_beat == null: return
@@ -43,6 +41,7 @@ func play(beat_name: String):
 func stop():
 	audio.stop()
 	current_beat = null
+	SignalManager.update_measure.emit(0)
 
 func setup_next_note() -> bool:
 	# Update indexes

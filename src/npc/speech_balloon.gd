@@ -11,28 +11,29 @@ const LETTER_TIME = 0.03
 const SPACE_TIME = 0.06
 const PUNCTUATION_TIME = 0.2
 const FINISH_TIME_MULTIPLIER = 0.075
+const ORIGINAL_Y_POSITION = -160
+var reseted := true
 
 var text := ""
 var letter_idx := 0
 
+func _process(_delta):
+	position.x = -size.x / 2
+	position.y = ORIGINAL_Y_POSITION - size.y / 2
+	size.x = MAX_WIDTH
+
+
 func display_dialogue(display_text:String):
+	_reset_talk() # Reset if already talking something
 	text = display_text
 	label.text = text
 	
-	# Setup balloon size for whole text
-	await resized
-	custom_minimum_size.x = min(size.x, MAX_WIDTH)
-	
-	if size.x > MAX_WIDTH:
+	if size.x >= MAX_WIDTH:
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD
-		await resized # wait for x
-		await resized # wait for y
-		custom_minimum_size.y = size.y
-	
-	#\position.x -= size.x / 2
-	position.y -= size.y - 25
 	
 	label.text = ""
+	reseted = false
+	display_timer.stop()
 	_display_next_letter()
 
 func _display_next_letter():
@@ -50,11 +51,19 @@ func _display_next_letter():
 			display_timer.start(SPACE_TIME)
 		_:
 			display_timer.start(LETTER_TIME)
-	
+
+func _reset_talk():
+	size.y= 0
+	letter_idx = 0
+	reseted = true
+
 
 func _on_letter_display_timer_timeout():
 	_display_next_letter()
 
 
 func _on_finish_timer_timeout():
-	finished_speech.emit()
+	if not reseted:
+		finished_speech.emit()
+	_reset_talk()
+

@@ -1,5 +1,6 @@
 extends Node
 
+
 # Queue = [Time1, Time2]
 # Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, has_played: false, has_released: false} # Duration maybe solved another day
 
@@ -10,7 +11,9 @@ var measures_looped := 0
 var loop_number := 0
 var time := 0.0
 var bpm := 60.0
+var bpm_is_playing := false
 
+const HITTING_ON_BEAT_ERROR_MARGIN = 4 # in beat time
 ### --- || Code || ---
 
 ## -- || Main Loop || --
@@ -27,6 +30,7 @@ func _ready():
 func _update_measure(val):
 	measure = val
 	time = 0.0
+	bpm_is_playing = measure != 0
 
 func _reset_loop():
 	loop_number += 1
@@ -74,6 +78,7 @@ func _process(delta):
 		key.has_releasedd = true
 
 
+
 ## -- || Key Inputs || --
 
 # Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, has_played: false} # Duration maybe solved another day
@@ -82,17 +87,18 @@ func _read_key_press(key):
 	note.loop = loop_number
 	note.time = time
 	note.note = key
-	note.duration = 0.0 # TODO
+	note.duration = 0.0
 	note.has_played = false
 	note.has_released = false
 	
 	queue.append(note)
+	_generate_score(note)
 
 func _read_key_release(key):
-	# TODO doesn't work for notes that relase after loop i think
+
 	var notes = queue.filter(func(k): return k.note == key and k.duration == 0.0) # Only one of those can exist
 	
-	if notes.size() != 1:
+	if notes.size() != 1 and measures_looped != 0:
 		print("read key release size != 1")
 	
 	if notes.size() == 1:
@@ -102,3 +108,34 @@ func _read_key_release(key):
 		if note_duration < 0:
 			note_duration = (60 * measure) - note.time
 		note.duration = note_duration
+
+
+# Generate "score" when pressing a note key accordingly to the time.
+# If the note is pressed on the beat +- HITTING_ON_BEAT_ERROR_MARGIN, it is considered a hit
+# The hit might apply to half and a quarter beat time as well.
+func _generate_score(note:Dictionary):
+	if not bpm_is_playing: return
+
+	var note_time = int(round(note.time)) % 60
+
+	# Check if note was pressed on the beat
+	var gained_score = false
+	gained_score = _check_if_on_beat(note_time, 1, "perfect")
+	if not gained_score:
+		gained_score = _check_if_on_beat(note_time, 2, "good")
+	if not gained_score:
+		print("bad")
+		SignalManager.played_on_beat_score.emit("bad")
+	
+
+
+func _check_if_on_beat(note_time:int, multiplier:int, score:String):
+	var BEAT_TIME = 60.0
+	print("note_time: ", note_time)
+	print("BEAT_TIME - note_time: ", abs(BEAT_TIME - note_time))
+
+	if abs(BEAT_TIME - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier or abs(BEAT_TIME / 2 - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier or note_time <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier:
+		print(score)
+		SignalManager.played_on_beat_score.emit(score)
+		return true
+	return false
