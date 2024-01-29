@@ -13,7 +13,7 @@ var time := 0.0
 var bpm := 60.0
 var bpm_is_playing := false
 
-const HITTING_ON_BEAT_ERROR_MARGIN = 4 # in beat time
+const HITTING_ON_BEAT_ERROR_MARGIN = 2 # in beat time
 ### --- || Code || ---
 
 ## -- || Main Loop || --
@@ -134,7 +134,11 @@ func _check_if_on_beat(note_time:int, multiplier:int, score:String):
 	print("note_time: ", note_time)
 	print("BEAT_TIME - note_time: ", abs(BEAT_TIME - note_time))
 
-	if abs(BEAT_TIME - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier or abs(BEAT_TIME / 2 - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier or note_time <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier:
+	# Considers until quarter note
+	if abs(BEAT_TIME - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
+		 or abs(BEAT_TIME / 2 - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
+		 or abs(BEAT_TIME / 4 - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
+		 or note_time <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier:
 		print(score)
 		SignalManager.played_on_beat_score.emit(score)
 		return true
