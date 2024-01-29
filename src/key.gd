@@ -93,8 +93,7 @@ func _update_sustain(value):
 
 # Input Detection --------------------
 func _unhandled_input(event):
-	if not mouse_hovered: return
-	if event.is_action_pressed("Select"):
+	if event.is_action_pressed("Select") and mouse_hovered:
 		press_key()
 	elif event.is_action_released("Select"):
 		release_key()
