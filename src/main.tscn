@@ -11,7 +11,7 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Keyboard" parent="." instance=ExtResource("1_yi20y")]
-position = Vector2(-148, 163)
+position = Vector2(120, 216)
 scale = Vector2(10, 10)
 base_octave = -1
 
@@ -22,12 +22,12 @@ offset_right = -512.0
 offset_bottom = -283.0
 
 [node name="InstrumentSelection" parent="." instance=ExtResource("3_j4p1w")]
-offset_left = 339.0
-offset_top = -288.0
-offset_right = -597.0
-offset_bottom = -771.0
+offset_left = -288.0
+offset_top = -280.0
+offset_right = -1224.0
+offset_bottom = -763.0
 
 [node name="BeatKeySynchronizer" parent="." instance=ExtResource("4_21lxm")]
 
 [node name="NPC" parent="." instance=ExtResource("5_by0su")]
-position = Vector2(-252, 9)
+position = Vector2(-424, 232)

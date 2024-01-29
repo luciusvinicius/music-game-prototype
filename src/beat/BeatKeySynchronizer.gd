@@ -93,7 +93,7 @@ func _read_key_release(key):
 	var notes = queue.filter(func(k): return k.note == key and k.duration == 0.0) # Only one of those can exist
 	
 	if notes.size() != 1:
-		print("Fodeu")
+		print("read key release size != 1")
 	
 	if notes.size() == 1:
 		var note = notes[0]

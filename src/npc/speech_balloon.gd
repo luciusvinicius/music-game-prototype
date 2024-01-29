@@ -15,7 +15,7 @@ const FINISH_TIME_MULTIPLIER = 0.075
 var text := ""
 var letter_idx := 0
 
-func display_text(display_text:String):
+func display_dialogue(display_text:String):
 	text = display_text
 	label.text = text
 	
@@ -29,21 +29,21 @@ func display_text(display_text:String):
 		await resized # wait for y
 		custom_minimum_size.y = size.y
 	
-	#position.x -= size.x / 2
-	#position.y -= size.y + 24
+	#\position.x -= size.x / 2
+	position.y -= size.y - 25
 	
 	label.text = ""
 	_display_next_letter()
 
 func _display_next_letter():
-	var char = text[letter_idx]
-	label.text += char
+	var ch = text[letter_idx]
+	label.text += ch
 	letter_idx += 1
 	if letter_idx >= text.length():
 		finish_timer.start(FINISH_TIME_MULTIPLIER * text.length())
 		return
 	
-	match char:
+	match ch:
 		"!", ".", "?", ",":
 			display_timer.start(PUNCTUATION_TIME)
 		" ":
