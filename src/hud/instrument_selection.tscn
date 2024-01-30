@@ -15,7 +15,7 @@ script = ExtResource("1_qbxci")
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 248.0
-offset_bottom = 124.0
+offset_bottom = 112.0
 theme = ExtResource("2_63oqw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
@@ -23,13 +23,14 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Instruments"
 horizontal_alignment = 1
 
 [node name="Instruments" type="GridContainer" parent="PanelContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
-theme_override_constants/h_separation = 62
+theme_override_constants/h_separation = 30
 columns = 2
 
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Instruments"]

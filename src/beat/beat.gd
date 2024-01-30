@@ -36,18 +36,27 @@ func play(beat_name: String):
 	current_beat = Beats.get_beat(beat_name)
 	SignalManager.update_measure.emit(current_beat.measure)
 	current_note_idx = -1
-	setup_next_note()
+	setup_next_note(true)
 
 func stop():
 	audio.stop()
 	current_beat = null
 	SignalManager.update_measure.emit(0)
 
-func setup_next_note() -> bool:
+func setup_next_note(changed_beat:=false) -> bool:
 	# Update indexes
+
+	if changed_beat:
+		for i in range(current_beat.notes.size()):
+			if current_beat.notes[i].time > Global.time:
+				current_note_idx = i - 1
+				break
+
 	if current_beat.notes.size() == 0: return true
 	current_note_idx = (current_note_idx + 1) % current_beat.notes.size()
 	return current_note_idx == 0 # Returns if the index should be reseted
+
+
 
 func play_note(note):
 	audio.stream = note.stream	

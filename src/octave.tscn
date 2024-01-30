@@ -29,16 +29,8 @@ texture = ExtResource("2_ljxt7")
 [node name="C" parent="Keys" instance=ExtResource("15_lvmmh")]
 pressed_sprite_texture = ExtResource("4_r4r5g")
 
-[node name="C#" parent="Keys" instance=ExtResource("15_lvmmh")]
-z_index = 1
-pressed_sprite_texture = ExtResource("11_23gt4")
-
 [node name="D" parent="Keys" instance=ExtResource("15_lvmmh")]
 pressed_sprite_texture = ExtResource("5_1s6lo")
-
-[node name="D#" parent="Keys" instance=ExtResource("15_lvmmh")]
-z_index = 1
-pressed_sprite_texture = ExtResource("12_owuvt")
 
 [node name="E" parent="Keys" instance=ExtResource("15_lvmmh")]
 pressed_sprite_texture = ExtResource("6_x6esj")
@@ -46,23 +38,31 @@ pressed_sprite_texture = ExtResource("6_x6esj")
 [node name="F" parent="Keys" instance=ExtResource("15_lvmmh")]
 pressed_sprite_texture = ExtResource("7_x2fl2")
 
+[node name="G" parent="Keys" instance=ExtResource("15_lvmmh")]
+pressed_sprite_texture = ExtResource("8_yepif")
+
+[node name="A" parent="Keys" instance=ExtResource("15_lvmmh")]
+pressed_sprite_texture = ExtResource("9_vr4rw")
+
+[node name="B" parent="Keys" instance=ExtResource("15_lvmmh")]
+pressed_sprite_texture = ExtResource("10_us7jo")
+
+[node name="C#" parent="Keys" instance=ExtResource("15_lvmmh")]
+z_index = 1
+pressed_sprite_texture = ExtResource("11_23gt4")
+
+[node name="D#" parent="Keys" instance=ExtResource("15_lvmmh")]
+z_index = 1
+pressed_sprite_texture = ExtResource("12_owuvt")
+
 [node name="F#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 pressed_sprite_texture = ExtResource("13_l7jqg")
-
-[node name="G" parent="Keys" instance=ExtResource("15_lvmmh")]
-pressed_sprite_texture = ExtResource("8_yepif")
 
 [node name="G#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 pressed_sprite_texture = ExtResource("14_gqj70")
 
-[node name="A" parent="Keys" instance=ExtResource("15_lvmmh")]
-pressed_sprite_texture = ExtResource("9_vr4rw")
-
 [node name="A#" parent="Keys" instance=ExtResource("15_lvmmh")]
 z_index = 1
 pressed_sprite_texture = ExtResource("15_us5t1")
-
-[node name="B" parent="Keys" instance=ExtResource("15_lvmmh")]
-pressed_sprite_texture = ExtResource("10_us7jo")

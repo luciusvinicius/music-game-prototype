@@ -53,3 +53,8 @@ func get_challenge_song():
 
 func increase_song_level():
 	song_level += 1
+
+func get_next_song() -> String:
+	if song_level >= SONGS.size():
+		return ""
+	return SONGS[song_level].name

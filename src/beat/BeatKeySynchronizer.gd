@@ -114,20 +114,21 @@ func _read_key_release(key):
 func _generate_score(note:Dictionary):
 	if not bpm_is_playing: return
 
-	var note_time = int(round(note.time)) % 60
-
+	var note_time = note.time / 60.0
+	var note_time_mod = (note_time - int(note_time)) * 60.0 # mod of float division
+	
 	# Check if note was pressed on the beat
 	var gained_score = false
-	gained_score = _check_if_on_beat(note_time, 1, 4)
+	gained_score = _check_if_on_beat(note_time_mod, 1.0, 4)
 	if not gained_score:
-		gained_score = _check_if_on_beat(note_time, 3, 2)
+		gained_score = _check_if_on_beat(note_time_mod, 2.5, 2)
 	if not gained_score:
 		print(0)
 		SignalManager.played_on_beat_score.emit(0)
 	
 
 
-func _check_if_on_beat(note_time:int, multiplier:int, score:int):
+func _check_if_on_beat(note_time:float, multiplier:float, score:int):
 	var BEAT_TIME = 60.0
 	print("note_time: ", note_time)
 	print("BEAT_TIME - note_time: ", abs(BEAT_TIME - note_time))

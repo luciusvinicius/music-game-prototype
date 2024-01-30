@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://046pnbte375i" path="res://src/keyboard.tscn" id="1_yi20y"]
 [ext_resource type="PackedScene" uid="uid://c4yieqqp8wl6r" path="res://src/hud/beat_selection.tscn" id="2_hr8k1"]
 [ext_resource type="PackedScene" uid="uid://ckjbxfq57vg5f" path="res://src/hud/instrument_selection.tscn" id="3_j4p1w"]
+[ext_resource type="PackedScene" uid="uid://lbqh14w0v4ax" path="res://src/hud/song_selection.tscn" id="3_tcv2x"]
 [ext_resource type="PackedScene" uid="uid://ciuwdyhjoj0cl" path="res://src/beat/beat_key_synchronizer.tscn" id="4_21lxm"]
 [ext_resource type="PackedScene" uid="uid://b8iw5bkiu8foh" path="res://src/npc/npc.tscn" id="5_by0su"]
-[ext_resource type="PackedScene" uid="uid://de48a554exj36" path="res://src/beat/song_player.tscn" id="6_nmds4"]
 
 [node name="Main" type="Node"]
 
@@ -56,6 +56,7 @@ grow_vertical = 2
 color = Color(0.0196078, 0.109804, 0.231373, 1)
 
 [node name="BlackBG3" type="ColorRect" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,6 +70,7 @@ grow_vertical = 2
 color = Color(0.0196078, 0.109804, 0.231373, 1)
 
 [node name="BlackBG4" type="ColorRect" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,6 +109,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.619608, 0.117647, 0.184314, 1)
 
+[node name="SongSelection" parent="Control" instance=ExtResource("3_tcv2x")]
+layout_mode = 1
+offset_left = -536.0
+offset_top = -32.0
+offset_right = -328.0
+offset_bottom = 40.0
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Keyboard" parent="." instance=ExtResource("1_yi20y")]
@@ -118,5 +127,3 @@ base_octave = -1
 
 [node name="NPC" parent="." instance=ExtResource("5_by0su")]
 position = Vector2(420, 192)
-
-[node name="SongPlayer" parent="." instance=ExtResource("6_nmds4")]

@@ -61,6 +61,7 @@ func challenge_player():
 	dialogue_queue.append(NpcDialogue.get_song_challenge())
 	dialogue_queue.append(NpcDialogue.get_metronome_help())
 	_speak()
+	SignalManager.unlock_next_song.emit(Songs.get_next_song())
 	#SignalManager.played_on_beat_score.disconnect(_on_beat_score)
 	#SignalManager.played_on_beat_score.connect(_on_challenge_score) <-- not a ma ideia
 
