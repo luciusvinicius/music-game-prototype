@@ -9,28 +9,62 @@
 
 [node name="Main" type="Node"]
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -328.0
+offset_right = 536.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.47451, 0.0980392, 0.160784, 1)
+metadata/_edit_lock_ = true
+
+[node name="BeatSelection" parent="Control" instance=ExtResource("2_hr8k1")]
+offset_left = -544.0
+offset_top = -296.0
+offset_right = -544.0
+offset_bottom = -296.0
+
+[node name="InstrumentSelection" parent="Control" instance=ExtResource("3_j4p1w")]
+layout_mode = 1
+offset_left = 296.0
+offset_top = -288.0
+offset_right = 256.0
+offset_bottom = -328.0
+
+[node name="ColorRect2" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 296.0
+offset_top = -96.0
+offset_right = 504.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.619608, 0.117647, 0.184314, 1)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Keyboard" parent="." instance=ExtResource("1_yi20y")]
-position = Vector2(120, 216)
+position = Vector2(-168, 208)
 scale = Vector2(10, 10)
 base_octave = -1
-
-[node name="BeatSelection" parent="." instance=ExtResource("2_hr8k1")]
-offset_left = -512.0
-offset_top = -283.0
-offset_right = -512.0
-offset_bottom = -283.0
-
-[node name="InstrumentSelection" parent="." instance=ExtResource("3_j4p1w")]
-offset_left = -288.0
-offset_top = -280.0
-offset_right = -1224.0
-offset_bottom = -763.0
 
 [node name="BeatKeySynchronizer" parent="." instance=ExtResource("4_21lxm")]
 
 [node name="NPC" parent="." instance=ExtResource("5_by0su")]
-position = Vector2(-424, 232)
+position = Vector2(416, 192)
 
 [node name="SongPlayer" parent="." instance=ExtResource("6_nmds4")]

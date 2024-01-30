@@ -22,8 +22,8 @@ Beats="*res://src/autoloads/beats.gd"
 Instruments="*res://src/autoloads/instruments.gd"
 SignalManager="*res://src/autoloads/signal_manager.gd"
 NpcDialogue="*res://src/npc/npc_dialogue.gd"
-Songs="*res://src/autoloads/songs.gd"
 Global="*res://src/autoloads/global.gd"
+Songs="*res://src/autoloads/songs.gd"
 
 [display]
 

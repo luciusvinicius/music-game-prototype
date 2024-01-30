@@ -6,7 +6,7 @@ extends MarginContainer
 
 signal finished_speech
 
-const MAX_WIDTH = 256
+const MAX_WIDTH = 200
 const LETTER_TIME = 0.03
 const SPACE_TIME = 0.06
 const PUNCTUATION_TIME = 0.2

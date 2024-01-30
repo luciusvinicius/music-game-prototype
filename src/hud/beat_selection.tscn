@@ -2,15 +2,7 @@
 
 [ext_resource type="Script" path="res://src/hud/beat_selection.gd" id="1_k5wqm"]
 [ext_resource type="PackedScene" uid="uid://bb2m0wqd77ete" path="res://src/beat/beat.tscn" id="2_a7dpe"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6q0s"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
-bg_color = Color(0.211765, 0.211765, 0.211765, 1)
-shadow_size = 5
-shadow_offset = Vector2(10, 10)
+[ext_resource type="Theme" uid="uid://7qw12flpfmgl" path="res://src/hud/main_theme.tres" id="3_o786b"]
 
 [node name="BeatSelection" type="Control"]
 layout_mode = 3
@@ -23,7 +15,7 @@ script = ExtResource("1_k5wqm")
 layout_mode = 0
 offset_right = 197.0
 offset_bottom = 118.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_k6q0s")
+theme = ExtResource("3_o786b")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
