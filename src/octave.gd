@@ -21,6 +21,9 @@ func setup_keys_pitches():
 		key.pitch = pitch
 
 func press_key(key_idx):
-	print(key_idx)
 	var key = keys.get_child(key_idx)
 	key.press_key(true) # Ignore_signal
+
+func release_key(key_idx):
+	var key = keys.get_child(key_idx)
+	key.release_key(false) # Ignore_signal

@@ -25,6 +25,17 @@ const BAD_BEAT_SCORE = [
 	"Practice makes perfect!"
 ]
 
+const CHALLENGE_SONG_TEMPLATE = [
+	"Hmm, I wonder if you can you play %s.",
+	"Let's see if you can play %s.",
+]
+
+const METRONOME_HELP = [
+	"Remember that you can use the Metronome to help you!",
+	"You can always use the Metronome to help you!",
+	"Try using the Metronome Beat to help you!"
+]
+
 ## -- || Getters || --
 func get_greeting():
 	return GREETINGS.pick_random()
@@ -47,3 +58,10 @@ func get_beat_score(total_score: int, previous_score_size: int):
 		return get_good_beat_score()
 	else:
 		return get_bad_beat_score()
+
+func get_song_challenge():
+	var choosen_song = Songs.get_challenge_song()
+	return CHALLENGE_SONG_TEMPLATE.pick_random() % choosen_song.name
+
+func get_metronome_help():
+	return METRONOME_HELP.pick_random()

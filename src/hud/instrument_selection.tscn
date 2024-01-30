@@ -27,9 +27,20 @@ text = "Instruments"
 horizontal_alignment = 1
 
 [node name="Instruments" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+layout_direction = 1
 layout_mode = 2
-theme_override_constants/h_separation = 30
+theme_override_constants/h_separation = 62
 columns = 2
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Instruments"]
+visible = false
+layout_mode = 2
+text = "sussy"
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/Instruments"]
+visible = false
+layout_mode = 2
+text = "sus"
 
 [node name="SustainToggle" type="CheckButton" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

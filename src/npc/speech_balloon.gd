@@ -5,6 +5,7 @@ extends MarginContainer
 @onready var finish_timer = $FinishTimer
 
 signal finished_speech
+signal finished_typing
 
 const MAX_WIDTH = 200
 const LETTER_TIME = 0.03
@@ -41,6 +42,7 @@ func _display_next_letter():
 	label.text += ch
 	letter_idx += 1
 	if letter_idx >= text.length():
+		finished_typing.emit()
 		finish_timer.start(FINISH_TIME_MULTIPLIER * text.length())
 		return
 	

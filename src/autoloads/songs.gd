@@ -1,5 +1,6 @@
 extends Node
 
+var song_level = 0
 
 # Structure is similar to beats, but instead of having a stream, it shows the note in the piano to be played.
 # SONGS will follow the following structure:
@@ -27,7 +28,13 @@ var FUR_ELISE = {
 	"notes": _produce_notes(FUR_ELISE_NOTES, FUR_ELISE_DURATIONS)
 }
 
-var SONGS = [FUR_ELISE]
+var MIX = {
+	"name": "Mix",
+	"measures": 4,
+	"notes": _produce_notes([7, 18, 7, 18, 7, 18, 7, 18], [60, 60, 60, 60, 60, 60, 60, 60])
+}
+
+var SONGS = [MIX, FUR_ELISE]
 
 
 func _produce_notes(notes: Array, durations: Array):
@@ -41,3 +48,8 @@ func _produce_notes(notes: Array, durations: Array):
 
 	return song_notes
 
+func get_challenge_song():
+	return SONGS[song_level]
+
+func increase_song_level():
+	song_level += 1

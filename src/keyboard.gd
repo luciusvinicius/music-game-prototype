@@ -9,8 +9,14 @@ func _ready():
 		var new_octave = base_octave + octave.get_index()
 		octave.octave = new_octave
 	SignalManager.play_note_on_keyboard.connect(_play_note)
+	SignalManager.release_note_on_keyboard.connect(_release_note)
 
 func _play_note(note):
 	var octave_idx = note / 12
 	var octave = octaves.get_child(octave_idx)
 	octave.press_key(note % 12)
+
+func _release_note(note):
+	var octave_idx = note / 12
+	var octave = octaves.get_child(octave_idx)
+	octave.release_key(note % 12)

@@ -14,3 +14,4 @@ signal key_pressed(key_node)
 signal key_released(key_node)
 signal played_on_beat_score(value) # 0 = bad, 1 = good, 2 = perfect
 signal play_note_on_keyboard(note) # Used to play automatic songs
+signal release_note_on_keyboard(note)
