@@ -22,7 +22,11 @@ func setup_keys_pitches():
 
 func press_key(key_idx):
 	var key = keys.get_child(key_idx)
-	key.press_key(true) # Ignore_signal
+	key.automatic_press_key()
+
+func press_tutorial_key(key_idx):
+	var key = keys.get_child(key_idx)
+	key.tutorial_press_key()
 
 func release_key(key_idx):
 	var key = keys.get_child(key_idx)

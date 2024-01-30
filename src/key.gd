@@ -30,6 +30,9 @@ var mouse_hovered := false
 @onready var automatic_pressed_sprite_texture : Texture2D = load("res://assets/imgs/Notes/" \
  + name + "-auto.png") # Texture for presses not made by the player
 
+@onready var tutorial_pressed_sprite_texture : Texture2D = load("res://assets/imgs/Notes/" \
+ + name + "-orange.png") # Texture for presses not made by the tutorial
+
 ### -- || Main Code || --
 
 # Called when the node enters the scene tree for the first time.
@@ -76,6 +79,13 @@ func automatic_press_key():
 		pressed_sprite.texture = automatic_pressed_sprite_texture
 	
 	press_key(true)
+
+func tutorial_press_key():
+	# Update pressed color
+	if pressed_sprite.texture != tutorial_pressed_sprite_texture:
+		pressed_sprite.texture = tutorial_pressed_sprite_texture
+	
+	pressed_sprite.show()
 
 func release_key(ignore_signal := false):
 	pressed_sprite.hide()

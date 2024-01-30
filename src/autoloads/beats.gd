@@ -75,7 +75,7 @@ const METRONOME_BEAT = {
 	"measure": 4,
 	"notes": [
 		{
-			"stream": METRONOME1,
+			"stream": METRONOME2,
 			"time": 0 
 		},
 		{
@@ -87,7 +87,7 @@ const METRONOME_BEAT = {
 			"time": 120
 		},
 		{
-			"stream": METRONOME2,
+			"stream": METRONOME1,
 			"time": 180
 		},
 	]

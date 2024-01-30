@@ -12,7 +12,6 @@ var loop_number := 0
 var bpm := 60.0
 var bpm_is_playing := false
 
-const HITTING_ON_BEAT_ERROR_MARGIN = 2 # in beat time
 ### --- || Code || ---
 
 ## -- || Main Loop || --
@@ -107,9 +106,10 @@ func _read_key_release(key):
 			note_duration = (60 * measure) - note.time
 		note.duration = note_duration
 
+## -- || Score || --
 
 # Generate "score" when pressing a note key accordingly to the time.
-# If the note is pressed on the beat +- HITTING_ON_BEAT_ERROR_MARGIN, it is considered a hit
+# If the note is pressed on the beat +- Consts.HITTING_ON_BEAT_ERROR_MARGIN, it is considered a hit
 # The hit might apply to half and a quarter beat time as well.
 func _generate_score(note:Dictionary):
 	if not bpm_is_playing: return
@@ -123,22 +123,19 @@ func _generate_score(note:Dictionary):
 	if not gained_score:
 		gained_score = _check_if_on_beat(note_time_mod, 2.5, 2)
 	if not gained_score:
-		print(0)
 		SignalManager.played_on_beat_score.emit(0)
 	
-
-
 func _check_if_on_beat(note_time:float, multiplier:float, score:int):
 	var BEAT_TIME = 60.0
-	print("note_time: ", note_time)
-	print("BEAT_TIME - note_time: ", abs(BEAT_TIME - note_time))
+	# print("note_time: ", note_time)
+	# print("BEAT_TIME - note_time: ", abs(BEAT_TIME - note_time))
 
 	# Considers until quarter note
-	if abs(BEAT_TIME - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
-		 or abs(BEAT_TIME / 2 - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
-		 or abs(BEAT_TIME / 4 - note_time) <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
-		 or note_time <= HITTING_ON_BEAT_ERROR_MARGIN * multiplier:
-		print(score)
+	if abs(BEAT_TIME - note_time) <= Consts.HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
+		 or abs(BEAT_TIME / 2 - note_time) <= Consts.HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
+		 or abs(BEAT_TIME / 4 - note_time) <= Consts.HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
+		 or note_time <= Consts.HITTING_ON_BEAT_ERROR_MARGIN * multiplier:
 		SignalManager.played_on_beat_score.emit(score)
 		return true
 	return false
+

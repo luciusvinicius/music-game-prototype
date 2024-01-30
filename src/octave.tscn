@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://b4s6b7s8my2f7"]
 
 [ext_resource type="Script" path="res://src/octave.gd" id="1_ysf8o"]
-[ext_resource type="Texture2D" uid="uid://ffxl64exltlb" path="res://assets/imgs/keyboard.png" id="2_ljxt7"]
-[ext_resource type="Texture2D" uid="uid://dpro5wg6sih8i" path="res://assets/imgs/Notes/C.png" id="4_r4r5g"]
+[ext_resource type="Texture2D" uid="uid://ffxl64exltlb" path="res://assets/imgs/keyboard.png" id="2_uoefa"]
+[ext_resource type="Texture2D" uid="uid://cdmwlp5dduu73" path="res://assets/imgs/Notes/C2.png" id="4_sodwc"]
 [ext_resource type="Texture2D" uid="uid://40g0k648ochd" path="res://assets/imgs/Notes/D.png" id="5_1s6lo"]
 [ext_resource type="Texture2D" uid="uid://dsmtj4uc014f" path="res://assets/imgs/Notes/E.png" id="6_x6esj"]
 [ext_resource type="Texture2D" uid="uid://ck5thqe3wuoa7" path="res://assets/imgs/Notes/F.png" id="7_x2fl2"]
@@ -22,12 +22,12 @@ octave = -1
 
 [node name="BaseKeyboard" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_ljxt7")
+texture = ExtResource("2_uoefa")
 
 [node name="Keys" type="Node2D" parent="."]
 
 [node name="C" parent="Keys" instance=ExtResource("15_lvmmh")]
-pressed_sprite_texture = ExtResource("4_r4r5g")
+pressed_sprite_texture = ExtResource("4_sodwc")
 
 [node name="D" parent="Keys" instance=ExtResource("15_lvmmh")]
 pressed_sprite_texture = ExtResource("5_1s6lo")
