@@ -57,6 +57,7 @@ theme_override_constants/h_separation = 30
 columns = 2
 
 [node name="No Beat" type="Button" parent="PanelContainer/VBoxContainer/Beats"]
+visible = false
 layout_mode = 2
 text = "No Beat"
 

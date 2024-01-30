@@ -2,6 +2,8 @@ extends Node
 
 const KICK = preload("res://assets/beats/kick.mp3")
 const SNARE = preload("res://assets/beats/snare.mp3")
+const METRONOME1 = preload("res://assets/beats/metronome1.mp3")
+const METRONOME2 = preload("res://assets/beats/metronome2.mp3")
 # BEATS will follow the following structure:
 # Beats: [Beat1, Beat2, ...]
 # Beat: {"name": "Beat1", "measures": 4, "notes": [Note1, Note2, ...]}
@@ -30,30 +32,63 @@ class Beat:
 
 
 const BEATS = [
-	{
-		"name": "Beat 1",
-		"measure": 4,
-		"notes": [
-			{
-				"stream": KICK,
-				"time": 0 
-			},
-			{
-				"stream": SNARE,
-				"time": 60
-			},
-			{
-				"stream": KICK,
-				"time": 120
-			},
-			{
-				"stream": SNARE,
-				"time": 150
-			},
-			{
-				"stream": SNARE,
-				"time": 180
-			},
-		]
-	}
+	NO_BEAT,
+	METRONOME_BEAT,
+	BEAT_1
 ]
+
+const NO_BEAT = {
+	"name": "No Beat",
+	"measure": 4,
+	"notes": []
+}
+
+const BEAT_1 = {
+	"name": "Beat 1",
+	"measure": 4,
+	"notes": [
+		{
+			"stream": KICK,
+			"time": 0 
+		},
+		{
+			"stream": SNARE,
+			"time": 60
+		},
+		{
+			"stream": KICK,
+			"time": 120
+		},
+		{
+			"stream": SNARE,
+			"time": 150
+		},
+		{
+			"stream": SNARE,
+			"time": 180
+		},
+	]
+}
+
+const METRONOME_BEAT = {
+	"name": "Metronome",
+	"measure": 4,
+	"notes": [
+		{
+			"stream": METRONOME1,
+			"time": 0 
+		},
+		{
+			"stream": METRONOME2,
+			"time": 60
+		},
+		{
+			"stream": METRONOME2,
+			"time": 120
+		},
+		{
+			"stream": METRONOME2,
+			"time": 180
+		},
+	]
+}

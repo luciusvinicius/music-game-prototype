@@ -4,9 +4,8 @@ extends Node
 @onready var audio : AudioStreamPlayer = $Audio
 
 ## -- || Vars || --
-var current_beat 
+var current_beat = Beats.get_beat("No Beat")
 var current_note_idx := 0
-var time := 0.0
 var reseted_idx := false # Avoids playing note with time = 0 after playing last note (before looping)
 @export var bpm := 60.0:
 	set(new_value):
@@ -16,19 +15,20 @@ var reseted_idx := false # Avoids playing note with time = 0 after playing last 
 
 ### --- || Code || ---
 func _process(delta):
-	if bpm == 0.0 or current_beat == null: return
+	if bpm == 0.0: return
+	Global.time += delta * bpm
 	
-	var current_note = current_beat.notes[current_note_idx]
-	time += delta * bpm
-	
-	# If note should be played
-	if time >= current_note.time and not reseted_idx:
-		play_note(current_note)
-		reseted_idx = setup_next_note()
-	
+	if current_beat.notes.size() != 0: # Used for "No beat"
+		var current_note = current_beat.notes[current_note_idx]
+		
+		# If note should be played
+		if Global.time >= current_note.time and not reseted_idx:
+			play_note(current_note)
+			reseted_idx = setup_next_note()
+		
 	# Reset beat loop
-	if time >= current_beat.measure * 60.0:
-		time -= current_beat.measure * 60.0
+	if Global.time >= current_beat.measure * 60.0:
+		Global.time -= current_beat.measure * 60.0
 		reseted_idx = false
 		SignalManager.measure_played.emit()
 
@@ -45,6 +45,7 @@ func stop():
 
 func setup_next_note() -> bool:
 	# Update indexes
+	if current_beat.notes.size() == 0: return true
 	current_note_idx = (current_note_idx + 1) % current_beat.notes.size()
 	return current_note_idx == 0 # Returns if the index should be reseted
 
@@ -55,5 +56,5 @@ func play_note(note):
 
 func reset():
 	current_note_idx = 0
-	time = 0.0
+	Global.time = 0.0
 	reseted_idx = 0

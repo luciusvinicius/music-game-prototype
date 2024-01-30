@@ -9,7 +9,6 @@ var queue : Array[Dictionary] = []
 var measure := 4
 var measures_looped := 0
 var loop_number := 0
-var time := 0.0
 var bpm := 60.0
 var bpm_is_playing := false
 
@@ -29,12 +28,12 @@ func _ready():
 
 func _update_measure(val):
 	measure = val
-	time = 0.0
+	# time = 0.0
 	bpm_is_playing = measure != 0
 
 func _reset_loop():
 	loop_number += 1
-	time -= min(bpm * measure, time) # time-time=0 is a fail-proof in the case that BPM was changed midway
+	# time -= min(bpm * measure, time) # time-time=0 is a fail-proof in the case that BPM was changed midway
 	
 	# Remove previous loop entries
 	var old_keys = queue.filter(func(key): return loop_number - measures_looped > key.loop)
@@ -52,20 +51,20 @@ func _update_measures_looped(value):
 
 func _update_bpm(new_bpm):
 	bpm = new_bpm
-	time = 0.0
+	# time = 0.0
 	
 
-func _process(delta):
+func _process(_delta):
 	if bpm == 0.0: return
 	
-	time += delta * bpm
+	# time += delta * bpm
 	
 	# Verify if there are notes on the queue to play
-	var possible_notes = queue.filter(func(key): return time > key.time \
+	var possible_notes = queue.filter(func(key): return Global.time > key.time \
 	 and loop_number - key.loop > 0) # Needs second condition to not play immediately
 	
 	var notes_to_play = possible_notes.filter(func(key): return not key.has_played)
-	var notes_to_release = possible_notes.filter(func(key): return time > key.time + key.duration \
+	var notes_to_release = possible_notes.filter(func(key): return Global.time > key.time + key.duration \
 	 and not key.has_released)
 	
 	# Play/release every note in time
@@ -85,12 +84,11 @@ func _process(delta):
 func _read_key_press(key):
 	var note = {}
 	note.loop = loop_number
-	note.time = time
+	note.time = Global.time
 	note.note = key
 	note.duration = 0.0
 	note.has_played = false
 	note.has_released = false
-	
 	queue.append(note)
 	_generate_score(note)
 
@@ -103,7 +101,7 @@ func _read_key_release(key):
 	
 	if notes.size() == 1:
 		var note = notes[0]
-		var note_duration = time - note.time
+		var note_duration = Global.time - note.time
 		# If note would overflow, cap it at the maximum time
 		if note_duration < 0:
 			note_duration = (60 * measure) - note.time
