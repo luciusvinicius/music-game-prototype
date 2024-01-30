@@ -11,6 +11,7 @@ var measures_looped := 0
 var loop_number := 0
 var bpm := 60.0
 var bpm_is_playing := false
+var is_tutorial := false
 
 ### --- || Code || ---
 
@@ -24,6 +25,8 @@ func _ready():
 	SignalManager.bpm_updated.connect(_update_bpm)
 	SignalManager.key_pressed.connect(_read_key_press)
 	SignalManager.key_released.connect(_read_key_release)
+	SignalManager.start_tutorial.connect(_start_tutorial)
+	SignalManager.tutorial_ended.connect(_end_tutorial)
 
 func _update_measure(val):
 	measure = val
@@ -89,7 +92,8 @@ func _read_key_press(key):
 	note.has_played = false
 	note.has_released = false
 	queue.append(note)
-	_generate_score(note)
+	if not is_tutorial:
+		_generate_score(note)
 
 func _read_key_release(key):
 
@@ -139,3 +143,10 @@ func _check_if_on_beat(note_time:float, multiplier:float, score:int):
 		return true
 	return false
 
+
+## -- || Tutorial || --
+func _start_tutorial(_song):
+	is_tutorial = true
+
+func _end_tutorial(_song):
+	is_tutorial = false

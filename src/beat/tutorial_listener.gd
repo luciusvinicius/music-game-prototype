@@ -24,11 +24,11 @@ func _generate_tutorial_score(closest_note, pressed_key_idx, pressed_time):
 	if _check_if_on_beat(note_time, pressed_time, 1.0):
 		time_score = 100
 	elif _check_if_on_beat(note_time, pressed_time, 2.0):
-		time_score = 75
+		time_score = 90
 	elif _check_if_on_beat(note_time, pressed_time, 4.0):
-		time_score = 50
+		time_score = 70
 	elif _check_if_on_beat(note_time, pressed_time, 8.0):
-		time_score = 25
+		time_score = 30
 	else:
 		time_score = 0
 	print("time_score: ", time_score)

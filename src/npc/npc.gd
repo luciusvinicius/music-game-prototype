@@ -90,4 +90,5 @@ func _on_tutorial_score(score):
 func _on_tutorial_end(song):
 	var n_notes = song.notes.size()
 	var percentage = tutorial_total_score / (n_notes * 200) # 200 is the max score per note
+	print("Percentage: " + str(percentage))
 	speak(NpcDialogue.get_tutorial_score(percentage))
