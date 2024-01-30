@@ -120,16 +120,16 @@ func _generate_score(note:Dictionary):
 
 	# Check if note was pressed on the beat
 	var gained_score = false
-	gained_score = _check_if_on_beat(note_time, 1, "perfect")
+	gained_score = _check_if_on_beat(note_time, 1, 4)
 	if not gained_score:
-		gained_score = _check_if_on_beat(note_time, 2, "good")
+		gained_score = _check_if_on_beat(note_time, 3, 2)
 	if not gained_score:
-		print("bad")
-		SignalManager.played_on_beat_score.emit("bad")
+		print(0)
+		SignalManager.played_on_beat_score.emit(0)
 	
 
 
-func _check_if_on_beat(note_time:int, multiplier:int, score:String):
+func _check_if_on_beat(note_time:int, multiplier:int, score:int):
 	var BEAT_TIME = 60.0
 	print("note_time: ", note_time)
 	print("BEAT_TIME - note_time: ", abs(BEAT_TIME - note_time))

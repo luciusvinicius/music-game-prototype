@@ -33,31 +33,13 @@ func _on_beat_score(value):
 
 func evaluate_score():
 	# Obtain the most common score in the previous scores
-	var most_common_score_dict = {}
-
+	var total_score = 0
 	for score in previous_scores:
-		if most_common_score_dict.has(score):
-			most_common_score_dict[score] += 1
-		else:
-			most_common_score_dict[score] = 1
-
-	var most_common_score = ""
-	for score in most_common_score_dict.keys():
-		if not most_common_score_dict.has(most_common_score):
-			most_common_score = score
-			continue
-		if most_common_score_dict[score] >= most_common_score_dict[most_common_score]:
-			most_common_score = score
+		total_score += score
 	
 	# Speak the dialogue corresponding to the most common score
-	var dialogue
-	match most_common_score:
-		"bad":
-			dialogue = NpcDialogue.get_bad_beat_score()
-		"good":
-			dialogue = NpcDialogue.get_good_beat_score()
-		"perfect":
-			dialogue = NpcDialogue.get_perfect_beat_score()
+	var dialogue = NpcDialogue.get_beat_score(total_score, previous_scores.size())
 
+	print("Total score: " + str(total_score))
 	speak(dialogue)
 	previous_scores.clear()

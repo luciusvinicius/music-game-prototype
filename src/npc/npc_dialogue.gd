@@ -37,3 +37,13 @@ func get_good_beat_score():
 
 func get_bad_beat_score():
 	return BAD_BEAT_SCORE.pick_random()
+
+func get_beat_score(total_score: int, previous_score_size: int):
+	var PERFECT_SCORE = 4 * (previous_score_size - 1)
+	var GOOD_SCORE = 2 * (previous_score_size - 1)
+	if total_score >= PERFECT_SCORE:
+		return get_perfect_beat_score()
+	elif total_score >= GOOD_SCORE:
+		return get_good_beat_score()
+	else:
+		return get_bad_beat_score()
