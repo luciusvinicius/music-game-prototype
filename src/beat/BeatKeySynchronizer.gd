@@ -127,6 +127,7 @@ func _generate_score(note:Dictionary):
 	if not gained_score:
 		gained_score = _check_if_on_beat(note_time_mod, 2.5, 2)
 	if not gained_score:
+		print("Score: ", 0)
 		SignalManager.played_on_beat_score.emit(0)
 	
 func _check_if_on_beat(note_time:float, multiplier:float, score:int):
@@ -139,6 +140,7 @@ func _check_if_on_beat(note_time:float, multiplier:float, score:int):
 		 or abs(BEAT_TIME / 2 - note_time) <= Consts.HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
 		 or abs(BEAT_TIME / 4 - note_time) <= Consts.HITTING_ON_BEAT_ERROR_MARGIN * multiplier \
 		 or note_time <= Consts.HITTING_ON_BEAT_ERROR_MARGIN * multiplier:
+		print("Score: ", score)
 		SignalManager.played_on_beat_score.emit(score)
 		return true
 	return false
