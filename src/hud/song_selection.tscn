@@ -17,7 +17,7 @@ script = ExtResource("1_evmax")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 248.0
+offset_right = 256.0
 offset_bottom = 112.0
 theme = ExtResource("2_0wtsm")
 
@@ -34,15 +34,15 @@ horizontal_alignment = 1
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/h_separation = 100
+theme_override_constants/h_separation = 45
 columns = 2
 
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Songs"]
 visible = false
 layout_mode = 2
-text = "sussy"
+text = "Tutorial"
 
 [node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/Songs"]
 visible = false
 layout_mode = 2
-text = "sus"
+text = "Fur Elise"

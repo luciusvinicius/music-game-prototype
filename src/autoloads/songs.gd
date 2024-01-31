@@ -20,8 +20,8 @@ func get_song(song_name: String):
 	return song
 
 
-var FUR_ELISE_NOTES = [16, 15, 16, 15, 16, 11, 14, 12, 9]
-var FUR_ELISE_DURATIONS = [60, 60, 60, 60, 60, 60, 60, 60, 60]
+var FUR_ELISE_NOTES = [16, 15, 16, 15, 16, 11, 14, 12, 9,      0, 4, 9, 11,  4, 8, 11, 12]
+var FUR_ELISE_DURATIONS = [60, 60, 60, 60, 60, 60, 60, 60, 120, 60, 60, 60, 120, 60, 60, 60, 120]
 
 var FUR_ELISE = {
 	"name": "Fur Elise",
@@ -29,13 +29,13 @@ var FUR_ELISE = {
 	"notes": _produce_notes(FUR_ELISE_NOTES, FUR_ELISE_DURATIONS)
 }
 
-var MIX = {
-	"name": "Mix",
+var TUTORIAL = {
+	"name": "Tutorial",
 	"measures": 4,
 	"notes": _produce_notes([7, 19, 7, 19], [60, 60, 60, 60])
 }
 
-var SONGS = [MIX, FUR_ELISE]
+var SONGS = [TUTORIAL, FUR_ELISE]
 
 
 func _produce_notes(notes: Array, durations: Array):
