@@ -4,6 +4,9 @@ const KICK = preload("res://assets/beats/kick.mp3")
 const SNARE = preload("res://assets/beats/snare.mp3")
 const METRONOME1 = preload("res://assets/beats/metronome1.mp3")
 const METRONOME2 = preload("res://assets/beats/metronome2.mp3")
+const FUNK_1 = preload("res://assets/beats/funk1.mp3")
+const FUNK_2 = preload("res://assets/beats/funk2.mp3")
+
 # BEATS will follow the following structure:
 # Beats: [Beat1, Beat2, ...]
 # Beat: {"name": "Beat1", "measures": 4, "notes": [Note1, Note2, ...]}
@@ -34,7 +37,8 @@ class Beat:
 const BEATS = [
 	NO_BEAT,
 	METRONOME_BEAT,
-	BEAT_1
+	BEAT_1,
+	FUNK_BEAT
 ]
 
 const NO_BEAT = {
@@ -89,6 +93,41 @@ const METRONOME_BEAT = {
 		{
 			"stream": METRONOME1,
 			"time": 180
+		},
+	]
+}
+
+const FUNK_BEAT = {
+	"name": "Funk",
+	"measure": 4,
+	"notes": [
+		{
+			"stream": FUNK_1,
+			"time": 0 
+		},
+		{
+			"stream": FUNK_2,
+			"time": 45
+		},
+				{
+			"stream": FUNK_2,
+			"time": 90
+		},
+		{
+			"stream": FUNK_1,
+			"time": 120
+		},
+		{
+			"stream": FUNK_2,
+			"time": 150
+		},
+		{
+			"stream": FUNK_2,
+			"time": 180
+		},
+		{
+			"stream": FUNK_1,
+			"time": 225
 		},
 	]
 }
