@@ -92,3 +92,8 @@ func _on_tutorial_end(song):
 	var percentage = tutorial_total_score / (n_notes * 200) # 200 is the max score per note
 	print("Percentage: " + str(percentage))
 	speak(NpcDialogue.get_tutorial_score(percentage))
+
+
+func _on_fur_elise_timer_timeout():
+	Songs.increase_song_level()
+	challenge_player()

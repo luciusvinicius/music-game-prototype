@@ -103,6 +103,12 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="FurEliseTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
 [connection signal="finished_speech" from="SpeechBalloon" to="." method="_on_speech_balloon_finished_speech"]
 [connection signal="finished_typing" from="SpeechBalloon" to="." method="_on_speech_balloon_finished_typing"]
 [connection signal="timeout" from="SongTrialTimer" to="." method="_on_song_trial_timer_timeout"]
+[connection signal="timeout" from="FurEliseTimer" to="." method="_on_fur_elise_timer_timeout"]

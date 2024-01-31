@@ -38,5 +38,5 @@ func _on_bpm_pressed(modifier):
 	_set_bpm(clamp(beat_manager.bpm + modifier, 1, 300))
 
 func _on_melodies_pressed(modifier):
-	melodies_looped = clamp(melodies_looped + modifier, 0, 4)
+	melodies_looped = clamp(melodies_looped + modifier, 0, 8)
 	_set_melodies_loop(melodies_looped)

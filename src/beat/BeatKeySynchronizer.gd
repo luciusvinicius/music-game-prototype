@@ -84,6 +84,7 @@ func _process(_delta):
 
 # Time = {loop: 0, time: 0.0, note: note_key, duration: 0.0, has_played: false} # Duration maybe solved another day
 func _read_key_press(key):
+	if is_tutorial: return
 	var note = {}
 	note.loop = loop_number
 	note.time = Global.time
@@ -92,8 +93,7 @@ func _read_key_press(key):
 	note.has_played = false
 	note.has_released = false
 	queue.append(note)
-	if not is_tutorial:
-		_generate_score(note)
+	_generate_score(note)
 
 func _read_key_release(key):
 
