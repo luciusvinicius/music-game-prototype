@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckjbxfq57vg5f"]
+[gd_scene load_steps=5 format=3 uid="uid://ckjbxfq57vg5f"]
 
 [ext_resource type="Script" path="res://src/hud/instrument_selection.gd" id="1_qbxci"]
 [ext_resource type="Theme" uid="uid://7qw12flpfmgl" path="res://src/hud/main_theme.tres" id="2_63oqw"]
+[ext_resource type="Script" path="res://src/hud/UIButton.gd" id="3_mlrhr"]
+[ext_resource type="Script" path="res://src/hud/UIToggle.gd" id="4_0n64n"]
 
 [node name="InstrumentSelection" type="Control"]
 layout_mode = 3
@@ -37,6 +39,7 @@ columns = 2
 visible = false
 layout_mode = 2
 text = "sussy"
+script = ExtResource("3_mlrhr")
 
 [node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/Instruments"]
 visible = false
@@ -47,5 +50,6 @@ text = "sus"
 layout_mode = 2
 button_pressed = true
 text = "Sustain"
+script = ExtResource("4_0n64n")
 
 [connection signal="toggled" from="PanelContainer/VBoxContainer/SustainToggle" to="." method="_on_sustain_toggle_toggled"]
