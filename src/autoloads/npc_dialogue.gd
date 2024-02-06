@@ -32,8 +32,8 @@ const BAD_BEAT_SCORE = [
 # Challenges
 
 const CHALLENGE_SONG_TEMPLATE = [
-	"Hmm, I wonder if you can you play %s.",
-	"Let's see if you can play %s.",
+	"Hmm, I wonder if you can you play \"%s\".",
+	"Let's see if you can play \"%s\".",
 ]
 
 const METRONOME_HELP = [
