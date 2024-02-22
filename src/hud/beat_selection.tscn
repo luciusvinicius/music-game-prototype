@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4yieqqp8wl6r"]
+[gd_scene load_steps=7 format=3 uid="uid://c4yieqqp8wl6r"]
 
 [ext_resource type="Script" path="res://src/hud/beat_selection.gd" id="1_k5wqm"]
 [ext_resource type="PackedScene" uid="uid://bb2m0wqd77ete" path="res://src/beat/beat.tscn" id="2_a7dpe"]
 [ext_resource type="Theme" uid="uid://7qw12flpfmgl" path="res://src/hud/main_theme.tres" id="3_o786b"]
+[ext_resource type="Theme" uid="uid://ceg6la0dv8r4s" path="res://src/themes/hud_buttons.tres" id="4_hsgsp"]
 [ext_resource type="Script" path="res://src/hud/UIButton.gd" id="4_ycgi6"]
+[ext_resource type="Theme" uid="uid://ciotajbiqvte8" path="res://src/themes/buttons_selection.tres" id="6_714i8"]
 
 [node name="BeatSelection" type="Control"]
 layout_mode = 3
@@ -33,25 +35,30 @@ alignment = 1
 
 [node name="BPM--" type="Button" parent="PanelContainer/VBoxContainer/BPMContainer"]
 layout_mode = 2
+theme = ExtResource("4_hsgsp")
 text = "<<"
 script = ExtResource("4_ycgi6")
 
 [node name="BPM-" type="Button" parent="PanelContainer/VBoxContainer/BPMContainer"]
 layout_mode = 2
+theme = ExtResource("4_hsgsp")
 text = "<"
 script = ExtResource("4_ycgi6")
 
 [node name="BPM" type="Label" parent="PanelContainer/VBoxContainer/BPMContainer"]
 layout_mode = 2
+theme = ExtResource("6_714i8")
 text = " BPM: 60 "
 
 [node name="BPM+" type="Button" parent="PanelContainer/VBoxContainer/BPMContainer"]
 layout_mode = 2
+theme = ExtResource("4_hsgsp")
 text = ">"
 script = ExtResource("4_ycgi6")
 
 [node name="BPM++" type="Button" parent="PanelContainer/VBoxContainer/BPMContainer"]
 layout_mode = 2
+theme = ExtResource("4_hsgsp")
 text = ">>"
 script = ExtResource("4_ycgi6")
 
@@ -61,20 +68,24 @@ alignment = 1
 
 [node name="Melodies-" type="Button" parent="PanelContainer/VBoxContainer/MeasuresContainer"]
 layout_mode = 2
+theme = ExtResource("4_hsgsp")
 text = "<"
 script = ExtResource("4_ycgi6")
 
 [node name="MelodiesLoop" type="Label" parent="PanelContainer/VBoxContainer/MeasuresContainer"]
 layout_mode = 2
+theme = ExtResource("6_714i8")
 text = " Measures: 0 "
 
 [node name="Melodies+" type="Button" parent="PanelContainer/VBoxContainer/MeasuresContainer"]
 layout_mode = 2
+theme = ExtResource("4_hsgsp")
 text = ">"
 script = ExtResource("4_ycgi6")
 
 [node name="Beats" type="GridContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("6_714i8")
 theme_override_constants/h_separation = 30
 columns = 2
 

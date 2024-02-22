@@ -12,7 +12,7 @@ const LETTER_TIME = 0.03
 const SPACE_TIME = 0.06
 const PUNCTUATION_TIME = 0.2
 const FINISH_TIME_MULTIPLIER = 0.075
-const ORIGINAL_Y_POSITION = -160
+const ORIGINAL_Y_POSITION = -120
 var reseted := true
 
 var text := ""
