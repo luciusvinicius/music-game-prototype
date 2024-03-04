@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckvp03vl0wafd"]
+[gd_scene load_steps=9 format=3 uid="uid://ckvp03vl0wafd"]
 
 [ext_resource type="PackedScene" uid="uid://046pnbte375i" path="res://src/keyboard.tscn" id="1_yi20y"]
 [ext_resource type="PackedScene" uid="uid://c4yieqqp8wl6r" path="res://src/hud/beat_selection.tscn" id="2_hr8k1"]
+[ext_resource type="Theme" uid="uid://7qw12flpfmgl" path="res://src/hud/main_theme.tres" id="3_eftgo"]
 [ext_resource type="PackedScene" uid="uid://ckjbxfq57vg5f" path="res://src/hud/instrument_selection.tscn" id="3_j4p1w"]
 [ext_resource type="PackedScene" uid="uid://lbqh14w0v4ax" path="res://src/hud/song_selection.tscn" id="3_tcv2x"]
 [ext_resource type="PackedScene" uid="uid://ciuwdyhjoj0cl" path="res://src/beat/beat_key_synchronizer.tscn" id="4_21lxm"]
@@ -30,18 +31,41 @@ grow_vertical = 2
 color = Color(0.47451, 0.0980392, 0.160784, 1)
 metadata/_edit_lock_ = true
 
-[node name="ColorRect3" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -152.0
+[node name="BeatSelection" parent="Control" instance=ExtResource("2_hr8k1")]
+offset_left = -544.0
 offset_top = -288.0
-offset_right = 122.0
-offset_bottom = -72.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.619608, 0.117647, 0.184314, 1)
+offset_right = -544.0
+offset_bottom = -288.0
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_left = -101.0
+offset_top = -298.0
+offset_right = 214.0
+offset_bottom = -32.0
+theme = ExtResource("3_eftgo")
+
+[node name="SongSelection" parent="Control" instance=ExtResource("3_tcv2x")]
+layout_mode = 1
+offset_left = -101.0
+offset_top = -288.0
+offset_right = 99.0
+offset_bottom = -216.0
+
+[node name="InstrumentSelection" parent="Control" instance=ExtResource("3_j4p1w")]
+layout_mode = 1
+offset_left = 235.0
+offset_top = -288.0
+offset_right = 195.0
+offset_bottom = -328.0
+
+[node name="Panel2" type="Panel" parent="Control"]
+layout_mode = 0
+offset_left = 296.0
+offset_top = -16.0
+offset_right = 569.0
+offset_bottom = 293.0
+theme = ExtResource("3_eftgo")
 
 [node name="BlackBG" type="ColorRect" parent="Control"]
 layout_mode = 1
@@ -95,48 +119,16 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0196078, 0.109804, 0.231373, 1)
 
-[node name="BeatSelection" parent="Control" instance=ExtResource("2_hr8k1")]
-offset_left = -544.0
-offset_top = -288.0
-offset_right = -544.0
-offset_bottom = -288.0
-
-[node name="SongSelection" parent="Control" instance=ExtResource("3_tcv2x")]
-layout_mode = 1
-offset_left = -152.0
-offset_top = -288.0
-offset_right = 48.0
-offset_bottom = -216.0
-
-[node name="InstrumentSelection" parent="Control" instance=ExtResource("3_j4p1w")]
-layout_mode = 1
-offset_left = 235.0
-offset_top = -288.0
-offset_right = 195.0
-offset_bottom = -328.0
-
-[node name="ColorRect2" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 296.0
-offset_top = -32.0
-offset_right = 504.0
-offset_bottom = 248.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.619608, 0.117647, 0.184314, 1)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Keyboard" parent="." instance=ExtResource("1_yi20y")]
-position = Vector2(-312, 192)
-scale = Vector2(12, 12)
+position = Vector2(-328, 184)
+scale = Vector2(14, 14)
 base_octave = -1
 
 [node name="NPC" parent="." instance=ExtResource("5_by0su")]
-position = Vector2(420, 192)
+position = Vector2(424, 202)
+scale = Vector2(0.9, 0.9)
 
 [node name="BeatKeySynchronizer" parent="." instance=ExtResource("4_21lxm")]
 
