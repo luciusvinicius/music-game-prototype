@@ -76,8 +76,9 @@ grow_vertical = 2
 color = Color(0.47451, 0.0980392, 0.160784, 1)
 
 [node name="Panel2" type="Panel" parent="BG"]
+layout_mode = 0
 offset_left = 296.0
-offset_top = -16.0
+offset_top = -40.0
 offset_right = 569.0
 offset_bottom = 293.0
 theme = ExtResource("3_eftgo")
