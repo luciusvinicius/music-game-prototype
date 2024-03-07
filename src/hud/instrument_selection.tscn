@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckjbxfq57vg5f"]
+[gd_scene load_steps=6 format=3 uid="uid://ckjbxfq57vg5f"]
 
 [ext_resource type="Script" path="res://src/hud/instrument_selection.gd" id="1_qbxci"]
 [ext_resource type="Theme" uid="uid://7qw12flpfmgl" path="res://src/hud/main_theme.tres" id="2_63oqw"]
@@ -6,62 +6,51 @@
 [ext_resource type="Script" path="res://src/hud/UIButton.gd" id="3_mlrhr"]
 [ext_resource type="Script" path="res://src/hud/UIToggle.gd" id="4_0n64n"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31k68"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
-bg_color = Color(0.619608, 0.117647, 0.184314, 1)
-corner_radius_bottom_left = 4
-
-[node name="InstrumentSelection" type="Control"]
-layout_mode = 3
+[node name="InstrumentSelection" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -843.0
+offset_bottom = -472.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_63oqw")
 script = ExtResource("1_qbxci")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 309.0
-offset_bottom = 256.0
-theme = ExtResource("2_63oqw")
-theme_override_styles/panel = SubResource("StyleBoxFlat_31k68")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Instruments"
 horizontal_alignment = 1
 
-[node name="Instruments" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+[node name="Instruments" type="GridContainer" parent="VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 theme = ExtResource("3_gvwjj")
 theme_override_constants/h_separation = 30
 columns = 2
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Instruments"]
+[node name="Button" type="Button" parent="VBoxContainer/Instruments"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Steel Guitar"
 script = ExtResource("3_mlrhr")
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/Instruments"]
+[node name="Button2" type="Button" parent="VBoxContainer/Instruments"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Flute"
 
-[node name="SustainToggle" type="CheckButton" parent="PanelContainer/VBoxContainer"]
+[node name="SustainToggle" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 button_pressed = true
 text = "Sustain"
 script = ExtResource("4_0n64n")
 
-[connection signal="toggled" from="PanelContainer/VBoxContainer/SustainToggle" to="." method="_on_sustain_toggle_toggled"]
+[connection signal="toggled" from="VBoxContainer/SustainToggle" to="." method="_on_sustain_toggle_toggled"]

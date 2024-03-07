@@ -14,7 +14,7 @@ const INSTRUMENTS = [
 		"stream": FLUTE
 	},
 	{
-		"name": "Steel Guitar",
+		"name": "Steel\nGuitar",
 		"stream": STEEL_GUITAR
 	}
 ]

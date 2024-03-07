@@ -5,33 +5,30 @@
 [ext_resource type="Theme" uid="uid://7qw12flpfmgl" path="res://src/hud/main_theme.tres" id="2_0wtsm"]
 [ext_resource type="Theme" uid="uid://ciotajbiqvte8" path="res://src/themes/buttons_selection.tres" id="4_co5n6"]
 
-[node name="SongSelection" type="Control"]
-layout_mode = 3
+[node name="SongSelection" type="PanelContainer"]
+custom_minimum_size = Vector2(311, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -842.0
+offset_bottom = -424.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_0wtsm")
 script = ExtResource("1_evmax")
 
 [node name="SongPlayer" parent="." instance=ExtResource("1_heowr")]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 314.0
-offset_bottom = 116.0
-theme = ExtResource("2_0wtsm")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Songs"
 horizontal_alignment = 1
 
-[node name="Songs" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+[node name="Songs" type="GridContainer" parent="VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 4
@@ -39,12 +36,12 @@ theme = ExtResource("4_co5n6")
 theme_override_constants/h_separation = 45
 columns = 2
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Songs"]
+[node name="Button" type="Button" parent="VBoxContainer/Songs"]
 visible = false
 layout_mode = 2
 text = "Tutorial"
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/Songs"]
+[node name="Button2" type="Button" parent="VBoxContainer/Songs"]
 visible = false
 layout_mode = 2
 text = "Fur Elise"

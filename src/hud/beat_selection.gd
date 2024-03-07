@@ -1,9 +1,9 @@
-extends Control
+extends PanelContainer
 
 @onready var beat_manager = $Beat
-@onready var bpm : Label = $PanelContainer/VBoxContainer/BPMContainer/BPM
-@onready var beats = $PanelContainer/VBoxContainer/Beats
-@onready var melodies_loop = $PanelContainer/VBoxContainer/MeasuresContainer/MelodiesLoop
+@onready var bpm : Label = $VBoxContainer/BPMContainer/BPM
+@onready var beats : GridContainer = $VBoxContainer/Beats
+@onready var melodies_loop : Label = $VBoxContainer/MeasuresContainer/MelodiesLoop
 
 var melodies_looped := 0
 const UIButton = preload("res://src/hud/UIButton.gd")
@@ -14,6 +14,7 @@ func _ready():
 		var beat_button = Button.new()
 		beat_button.text = beat.name
 		beat_button.pressed.connect(_on_beat_button_pressed.bind(beat.name)) # Add "beat.name" as an extra argument
+		beat_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		beat_button.set_script(UIButton)
 		beats.add_child(beat_button)
 

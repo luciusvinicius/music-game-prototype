@@ -1,6 +1,7 @@
 extends Control
 
-@onready var instruments = $PanelContainer/VBoxContainer/Instruments
+@onready var instruments = $VBoxContainer/Instruments
+
 const UIButton = preload("res://src/hud/UIButton.gd")
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,6 +9,7 @@ func _ready():
 	for instrument in Instruments.INSTRUMENTS:
 		var instrument_button = Button.new()
 		instrument_button.text = instrument.name
+		instrument_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		instrument_button.set_script(UIButton)
 		instrument_button.pressed.connect(_on_instrument_button_pressed.bind(instrument.name)) # Add "beat.name" as an extra argument
 		instruments.add_child(instrument_button)

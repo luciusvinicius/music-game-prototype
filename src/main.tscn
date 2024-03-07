@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckvp03vl0wafd"]
+[gd_scene load_steps=10 format=3 uid="uid://ckvp03vl0wafd"]
 
 [ext_resource type="PackedScene" uid="uid://046pnbte375i" path="res://src/keyboard.tscn" id="1_yi20y"]
 [ext_resource type="PackedScene" uid="uid://c4yieqqp8wl6r" path="res://src/hud/beat_selection.tscn" id="2_hr8k1"]
@@ -6,32 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://ckjbxfq57vg5f" path="res://src/hud/instrument_selection.tscn" id="3_j4p1w"]
 [ext_resource type="PackedScene" uid="uid://lbqh14w0v4ax" path="res://src/hud/song_selection.tscn" id="3_tcv2x"]
 [ext_resource type="PackedScene" uid="uid://ciuwdyhjoj0cl" path="res://src/beat/beat_key_synchronizer.tscn" id="4_21lxm"]
+[ext_resource type="PackedScene" uid="uid://d4l4kqsugsoo7" path="res://src/hud/hud.tscn" id="5_06db3"]
 [ext_resource type="PackedScene" uid="uid://b8iw5bkiu8foh" path="res://src/npc/npc.tscn" id="5_by0su"]
 [ext_resource type="PackedScene" uid="uid://dnb8n2daqecw5" path="res://src/beat/tutorial_listener.tscn" id="7_xft0h"]
 
 [node name="Main" type="Node"]
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="RedBG" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -576.0
-offset_top = -328.0
-offset_right = 536.0
-offset_bottom = 288.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.47451, 0.0980392, 0.160784, 1)
-metadata/_edit_lock_ = true
-
 [node name="BeatSelection" parent="Control" instance=ExtResource("2_hr8k1")]
+layout_mode = 0
 offset_left = -544.0
 offset_top = -288.0
 offset_right = -544.0
@@ -67,20 +56,13 @@ offset_right = 569.0
 offset_bottom = 293.0
 theme = ExtResource("3_eftgo")
 
-[node name="BlackBG" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -576.0
-offset_top = 288.0
-offset_right = 536.0
-offset_bottom = 288.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0196078, 0.109804, 0.231373, 1)
+[node name="BG" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="BlackBG2" type="ColorRect" parent="Control"]
+[node name="RedBG" type="ColorRect" parent="BG"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,36 +70,21 @@ anchor_bottom = 1.0
 offset_left = -576.0
 offset_top = -328.0
 offset_right = 536.0
-offset_bottom = -328.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0196078, 0.109804, 0.231373, 1)
-
-[node name="BlackBG3" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -576.0
-offset_top = -328.0
-offset_right = -584.0
 offset_bottom = 288.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0196078, 0.109804, 0.231373, 1)
+color = Color(0.47451, 0.0980392, 0.160784, 1)
 
-[node name="BlackBG4" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 544.0
-offset_top = -328.0
-offset_right = 536.0
-offset_bottom = 288.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0196078, 0.109804, 0.231373, 1)
+[node name="Panel2" type="Panel" parent="BG"]
+offset_left = 296.0
+offset_top = -16.0
+offset_right = 569.0
+offset_bottom = 293.0
+theme = ExtResource("3_eftgo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("5_06db3")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
