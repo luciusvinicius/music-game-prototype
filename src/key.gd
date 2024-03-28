@@ -23,8 +23,8 @@ const NORMAL_Y_SIZE = 15.0
 const NORMAL_Y_POSITION = -6.0
 const SHARP_Y_OFFSET = -2.0
 const SHARP_Y_SIZE = 8.5
-const COLLISION_X_SIZE = 3.0
-const COLLISION_X_POSITION = -12.5
+const COLLISION_X_SIZE = 3.75
+const COLLISION_X_POSITION = -13.25
 const COLLISION_X_OFFSET = 2.0
 
 
@@ -60,7 +60,9 @@ func _ready():
 	if note_idx == 5: # Add offset to blacknote that doesn't exist
 		position_x += COLLISION_X_OFFSET
 	elif note_idx >= 6:
-		position_x += COLLISION_X_OFFSET / 2
+		position_x += COLLISION_X_OFFSET / 1.0
+	
+	print("Name: ", name, ", Sharp: ", is_sharp, ", Note idx: ", note_idx, ", Position: ", position_x)
 	rect.position.x = position_x
 	rect.position.y = selected_offset
 		
@@ -123,6 +125,7 @@ func _unhandled_input(event):
 func _on_rect_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
+			print("Mouse pressed in note: ", name)
 			if event.pressed:
 				press_key()
 			else:

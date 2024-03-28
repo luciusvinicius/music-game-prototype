@@ -29,6 +29,7 @@ grow_vertical = 2
 color = Color(0.47451, 0.0980392, 0.160784, 1)
 
 [node name="Panel2" type="Panel" parent="BG"]
+visible = false
 layout_mode = 0
 offset_left = 296.0
 offset_top = -40.0
@@ -43,11 +44,12 @@ theme = ExtResource("3_eftgo")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Keyboard" parent="." instance=ExtResource("1_yi20y")]
-position = Vector2(-328, 184)
-scale = Vector2(14, 14)
+position = Vector2(-288, 160)
+scale = Vector2(20, 20)
 base_octave = -1
 
 [node name="NPC" parent="." instance=ExtResource("5_by0su")]
+visible = false
 position = Vector2(424, 202)
 scale = Vector2(0.9, 0.9)
 
