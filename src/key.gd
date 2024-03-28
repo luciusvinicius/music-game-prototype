@@ -2,9 +2,11 @@ extends Node2D
 
 signal key_pressed(index)
 
+## -- || Nodes || --
 @onready var pressed_sprite : Sprite2D = $PressedSprite
 @onready var rect : ColorRect = $Rect
 @onready var key_sound : AudioStreamPlayer = $KeySound
+@onready var minimum_click_timer : Timer = $MinimumClickTimer
 
 ### -- || Vars || --
 
@@ -25,8 +27,11 @@ const COLLISION_X_SIZE = 3.0
 const COLLISION_X_POSITION = -12.5
 const COLLISION_X_OFFSET = 2.0
 
+
 ## -- || Logic || --
 var mouse_hovered := false
+var click_time := 0.0
+
 @onready var automatic_pressed_sprite_texture : Texture2D = load("res://assets/imgs/Notes/" \
  + name + "-auto.png") # Texture for presses not made by the player
 
@@ -58,11 +63,14 @@ func _ready():
 		position_x += COLLISION_X_OFFSET / 2
 	rect.position.x = position_x
 	rect.position.y = selected_offset
+		
 
 ## -- || Presses/Releases || --
 func press_key(ignore_signal := false):
+	minimum_click_timer.stop()
 	key_pressed.emit(get_index())
 	pressed_sprite.show()
+	click_time = 0.0
 	key_sound.play()
 	
 	# Used in automatic note press/release (note loops for instance)
@@ -88,6 +96,10 @@ func tutorial_press_key():
 	pressed_sprite.show()
 
 func release_key(ignore_signal := false):
+	if not ignore_signal and minimum_click_timer.is_stopped():
+		minimum_click_timer.start()
+		#print(minimum_click_timer)
+		await minimum_click_timer.timeout
 	pressed_sprite.hide()
 	if not sustain: key_sound.stop()
 	

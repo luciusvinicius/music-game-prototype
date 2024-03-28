@@ -24,6 +24,10 @@ color = Color(0.462745, 0.388235, 0.611765, 0)
 stream = SubResource("AudioStreamMP3_3vns5")
 volume_db = 14.631
 
+[node name="MinimumClickTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="gui_input" from="Rect" to="." method="_on_rect_gui_input"]
 [connection signal="mouse_entered" from="Rect" to="." method="_on_rect_mouse_entered"]
 [connection signal="mouse_exited" from="Rect" to="." method="_on_rect_mouse_exited"]

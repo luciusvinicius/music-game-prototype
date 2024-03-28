@@ -97,10 +97,10 @@ text = "No Beat"
 visible = false
 layout_mode = 2
 
-[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM--" to="." method="_on_bpm_pressed"]
-[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM-" to="." method="_on_bpm_pressed"]
-[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM+" to="." method="_on_bpm_pressed"]
-[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM++" to="." method="_on_bpm_pressed"]
+[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM--" to="." method="_on_bpm_pressed" binds= [-10]]
+[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM-" to="." method="_on_bpm_pressed" binds= [-1]]
+[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM+" to="." method="_on_bpm_pressed" binds= [1]]
+[connection signal="pressed" from="VBoxContainer/BPMContainer/BPM++" to="." method="_on_bpm_pressed" binds= [10]]
 [connection signal="pressed" from="VBoxContainer/MeasuresContainer/Melodies-" to="." method="_on_melodies_pressed"]
 [connection signal="pressed" from="VBoxContainer/MeasuresContainer/Melodies+" to="." method="_on_melodies_pressed"]
 [connection signal="pressed" from="VBoxContainer/Beats/No Beat" to="." method="_on_no_beat_pressed"]

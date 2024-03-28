@@ -32,7 +32,7 @@ var FUR_ELISE = {
 var TUTORIAL = {
 	"name": "Tutorial",
 	"measures": 4,
-	"notes": _produce_notes([7, 19, 7, 19], [60, 60, 60, 60])
+	"notes": _produce_notes([7, 19, 7, 19], [120, 120, 120, 120])
 }
 
 var SONGS = [TUTORIAL, FUR_ELISE]
