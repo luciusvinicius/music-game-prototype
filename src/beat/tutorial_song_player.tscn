@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://seqcgsfio7gy"]
+
+[ext_resource type="Script" path="res://src/beat/tutorial_song_player.gd" id="1_dj32d"]
+
+[node name="TutorialSongPlayer" type="Node"]
+script = ExtResource("1_dj32d")

@@ -31,6 +31,7 @@ const COLLISION_X_OFFSET = 2.0
 ## -- || Logic || --
 var mouse_hovered := false
 var click_time := 0.0
+var octave := 0
 
 @onready var automatic_pressed_sprite_texture : Texture2D = load("res://assets/imgs/Notes/" \
  + name + "-auto.png") # Texture for presses not made by the player
@@ -62,7 +63,6 @@ func _ready():
 	elif note_idx >= 6:
 		position_x += COLLISION_X_OFFSET / 1.0
 	
-	print("Name: ", name, ", Sharp: ", is_sharp, ", Note idx: ", note_idx, ", Position: ", position_x)
 	rect.position.x = position_x
 	rect.position.y = selected_offset
 		
@@ -119,16 +119,15 @@ func _update_sustain(value):
 func _unhandled_input(event):
 	if event.is_action_pressed("Select") and mouse_hovered:
 		press_key()
-	elif event.is_action_released("Select"):
+	elif event.is_action_released("Select") and pressed_sprite.texture == pressed_sprite_texture:
 		release_key()
 
 func _on_rect_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			print("Mouse pressed in note: ", name)
 			if event.pressed:
 				press_key()
-			else:
+			elif pressed_sprite.texture == pressed_sprite_texture:
 				release_key()
 
 func _on_rect_mouse_entered():

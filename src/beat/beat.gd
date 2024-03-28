@@ -14,6 +14,10 @@ var reseted_idx := false # Avoids playing note with time = 0 after playing last 
 		reset()
 
 ### --- || Code || ---
+
+func _ready():
+	SignalManager.reset_beat.connect(reset)
+
 func _process(delta):
 	if bpm == 0.0: return
 	Global.time += delta * bpm

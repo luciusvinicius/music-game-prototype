@@ -19,6 +19,7 @@ func setup_keys_pitches():
 		var key_idx = Consts.get_note_idx(key.name)
 		var pitch = 2.0**octave * 2**(key_idx/12.0)
 		key.pitch = pitch
+		key.octave = octave
 
 func press_key(key_idx):
 	var key = keys.get_child(key_idx)
@@ -30,4 +31,4 @@ func press_tutorial_key(key_idx):
 
 func release_key(key_idx):
 	var key = keys.get_child(key_idx)
-	key.release_key(false) # Ignore_signal
+	key.release_key(true) # Ignore_signal
