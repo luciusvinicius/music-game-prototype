@@ -13,14 +13,15 @@ const FUNK_2 = preload("res://assets/beats/funk2.mp3")
 # Note: {"stream": STREAM_SOUND, "time": val} --> this "time" will be when the sound will appear on the beat
 # It considers that a full cycle has 240 (60xMeasure=4) units of "time"
 
-func get_beat(beat_name: String) -> Beat:
+func get_beat(beat_name: String):
 	var possible_beats := BEATS.filter(func(b): return b.name == beat_name)
 	if possible_beats.size() == 0:
 		push_error("Beat of name %s not found!" % beat_name)
 		return null
 	var beat = possible_beats[0]
-	var beat_instance = Beat.new(beat.name, beat.measure, beat.notes)
-	return beat_instance
+	return beat
+	#var beat_instance = Beat.new(beat.name, beat.measure, beat.notes)
+	#return beat_instance
 
 class Beat:
 	var beat_name:String

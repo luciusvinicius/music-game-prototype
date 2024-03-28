@@ -51,11 +51,10 @@ func setup_next_note(changed_beat:=false) -> bool:
 			if current_beat.notes[i].time > Global.time:
 				current_note_idx = i - 1
 				break
-
+	
 	if current_beat.notes.size() == 0: return true
 	current_note_idx = (current_note_idx + 1) % current_beat.notes.size()
 	return current_note_idx == 0 # Returns if the index should be reseted
-
 
 
 func play_note(note):
@@ -66,4 +65,4 @@ func play_note(note):
 func reset():
 	current_note_idx = 0
 	Global.time = 0.0
-	reseted_idx = 0
+	reseted_idx = false
