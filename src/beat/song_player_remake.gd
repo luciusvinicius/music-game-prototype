@@ -16,6 +16,7 @@ func _ready():
 
 func play_song(song_name: String):
 	current_song = Songs.get_song(song_name)
+	SignalManager.cancel_tutorial.emit()
 	reset()
 
 func reset():

@@ -88,6 +88,7 @@ func _on_tutorial_score(score):
 	tutorial_total_score += score
 
 func _on_tutorial_end(song):
+	if not song: return
 	var n_notes = song.notes.size()
 	var percentage = tutorial_total_score / (n_notes * 200) # 200 is the max score per note
 	print("Percentage: " + str(percentage))

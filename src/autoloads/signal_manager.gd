@@ -26,3 +26,4 @@ signal tutorial_ended(song)
 
 # Tutorial Remake
 signal reset_beat()
+signal cancel_tutorial()
