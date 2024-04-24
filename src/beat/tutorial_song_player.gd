@@ -40,6 +40,7 @@ func _play_next_note():
 
 ## -- Signals -- ##
 func _recv_key_press(key):
+	if not current_song: return
 	var current_note = current_song.notes[note_to_play].note
 	var pressed_key_val = (key.octave + 1) * 12 + Consts.get_note_idx(key.name)
 

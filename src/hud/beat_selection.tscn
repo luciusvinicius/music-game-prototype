@@ -60,6 +60,7 @@ text = ">>"
 script = ExtResource("4_ycgi6")
 
 [node name="MeasuresContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 alignment = 1
 

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cly1n2b8ksnbc"]
+
+[ext_resource type="Script" path="res://src/partiture/partiture.gd" id="1_evd77"]
+[ext_resource type="Texture2D" uid="uid://qwhsprx4b0w5" path="res://assets/imgs/partiture/partiture_start_transparent.png" id="2_85jaw"]
+[ext_resource type="Texture2D" uid="uid://c3m4sjclqplrm" path="res://assets/imgs/partiture/partiture_end_transparent.png" id="5_gujhf"]
+[ext_resource type="Texture2D" uid="uid://djwe80di1le2a" path="res://assets/imgs/partiture/note_white.png" id="5_wbgi2"]
+
+[node name="Partiture" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_evd77")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, -0.04)
+offset_left = -1.0
+offset_top = -34.0
+offset_right = 320.0
+offset_bottom = 102.0
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Start" type="TextureRect" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("2_85jaw")
+expand_mode = 2
+
+[node name="NoteGray" type="TextureRect" parent="ScrollContainer/HBoxContainer/Start"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(16, 54)
+offset_left = 113.0
+offset_top = 50.0
+offset_right = 129.0
+offset_bottom = 104.0
+texture = ExtResource("5_wbgi2")
+
+[node name="PartitureEnd" type="TextureRect" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(192, 128)
+layout_mode = 2
+texture = ExtResource("5_gujhf")

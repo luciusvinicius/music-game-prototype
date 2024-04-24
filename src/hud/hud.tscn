@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4l4kqsugsoo7"]
+[gd_scene load_steps=5 format=3 uid="uid://d4l4kqsugsoo7"]
 
 [ext_resource type="PackedScene" uid="uid://c4yieqqp8wl6r" path="res://src/hud/beat_selection.tscn" id="1_p7dn3"]
 [ext_resource type="PackedScene" uid="uid://lbqh14w0v4ax" path="res://src/hud/song_selection.tscn" id="2_dkyns"]
 [ext_resource type="PackedScene" uid="uid://ckjbxfq57vg5f" path="res://src/hud/instrument_selection.tscn" id="3_3mue5"]
+[ext_resource type="PackedScene" uid="uid://cly1n2b8ksnbc" path="res://src/partiture/partiture.tscn" id="4_r4rq2"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -66,3 +67,10 @@ offset_top = 616.0
 offset_right = 1144.0
 offset_bottom = 648.0
 color = Color(0.0196078, 0.109804, 0.231373, 1)
+
+[node name="Partiture" parent="." instance=ExtResource("4_r4rq2")]
+layout_mode = 2
+offset_left = 424.0
+offset_top = 160.0
+offset_right = 424.0
+offset_bottom = 160.0
