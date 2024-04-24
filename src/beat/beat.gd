@@ -11,6 +11,7 @@ var reseted_idx := false # Avoids playing note with time = 0 after playing last 
 	set(new_value):
 		bpm = new_value
 		SignalManager.bpm_updated.emit(bpm)
+		Global.bpm = bpm
 		reset()
 
 ### --- || Code || ---

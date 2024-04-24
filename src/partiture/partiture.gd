@@ -3,8 +3,9 @@ extends Control
 # --- Preloads --- #
 
 # Notes
-const QUARTER = preload("res://assets/imgs/partiture/notes/quarter.png")
-const HALF = preload("res://assets/imgs/partiture/notes/half.png")
+const HALF = preload("res://assets/imgs/partiture/notes/half2.png")
+const QUARTER = preload("res://assets/imgs/partiture/notes/quarter2.png")
+const EIGHTH = preload("res://assets/imgs/partiture/notes/eighth.png")
 
 # Sheet
 const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transparent.png")
@@ -12,20 +13,26 @@ const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transpa
 # --- Nodes --- #
 @onready var positions = $Positions
 @onready var partiture_container = $ScrollContainer/PartitureContainer
+@onready var scroll_container = $ScrollContainer
 
 # --- Constants --- #
-const SCROLL_SPEED = 50
+const SCROLL_SPEED_RATIO = 3
 const NOTE_SPAWN_OFFSET_Y = 4
 const NOTE_SPAWN_OFFSET_X = 8 * 5
-const NOTE_MINIMUM_SIZE = Vector2(16, 54)
+const NOTE_MINIMUM_SIZE = Vector2(32, 54)
 const PARTITURE_MINIMUM_SIZE = Vector2(196, 128)
+const PARTITURE_SCROLL_OFFSET = 90
+const SCROLL_LOOK_AHEAD_OFFSET = 0
 
 # --- Vars --- #
 var note_type2texture = {
 	"half": HALF,
-	"quarter": QUARTER
+	"quarter": QUARTER,
+	"eighth": EIGHTH
 }
 
+var fisrt_note := true
+var song_total_duration := 0
 var total_duration_played := 0
 var x_distance_traveled := 0.0
 
@@ -34,9 +41,18 @@ func _ready():
 	SignalManager.play_note_on_keyboard.connect(create_note)
 	SignalManager.demo_song_started.connect(load_song_partiture)
 
+# func _process(delta):
+# 	# if fisrt_note:
+# 	# 	return
+# 	scroll_container.scroll_horizontal = round(scroll_value)
+# 	# print(scroll_value)
+
 func load_song_partiture(song):
+	fisrt_note = true
+
 	# Clean existence partiture
-	total_duration_played = 0
+	total_duration_played = song.initial_offset
+	x_distance_traveled = song.initial_offset
 	for partiture in partiture_container.get_children():
 		if "Start" in partiture.name or "End" in partiture.name:
 			_remove_notes(partiture)
@@ -58,6 +74,10 @@ func create_demo_note(key):
 
 
 func create_note(key, color = Colors.BLACK):
+
+	if fisrt_note:
+		fisrt_note = false
+
 	var note_node = TextureRect.new()
 	note_node.texture = note_type2texture[Consts.NOTES_DURATION2NAME[key.duration]]
 	note_node.custom_minimum_size = NOTE_MINIMUM_SIZE
@@ -87,9 +107,23 @@ func create_note(key, color = Colors.BLACK):
 
 	# Update total duration played
 	total_duration_played += key.duration
+
 	x_distance_traveled += key.duration
 	if x_distance_traveled >= Songs.DURATION_PER_SHEET:
 		x_distance_traveled = 0
+	
+	# Animate scroll value
+	var scroll_distance 
+	if total_duration_played >= song_total_duration:
+		scroll_distance = 2 * scroll_container.size.x
+	else:
+		scroll_distance = float(total_duration_played) / song_total_duration * scroll_container.size.x + SCROLL_LOOK_AHEAD_OFFSET
+		scroll_distance += total_duration_played / Songs.DURATION_PER_SHEET * PARTITURE_SCROLL_OFFSET # Add partiture size offset
+	
+	var scroll_time = float(key.duration) / Songs.DURATION_PER_SHEET * SCROLL_SPEED_RATIO
+	var tween_scroll = get_tree().create_tween()
+	tween_scroll.tween_property(scroll_container, "scroll_horizontal", scroll_distance, scroll_time)
+
 
 
 # --- Other Functions --- #
@@ -98,8 +132,10 @@ func _remove_notes(node):
 		child.queue_free()
 
 func _get_mid_partitures_size(song) -> int:
-	var total_duration = 0
+	var total_duration = float(song.initial_offset)
 	for note in song.notes:
 		total_duration += note.duration
 
-	return max(total_duration / 240 - 1, 0)
+	print("Total Duration: ", total_duration)
+	song_total_duration = total_duration
+	return max(ceil(total_duration / 240) - 1, 0)

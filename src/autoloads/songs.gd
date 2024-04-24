@@ -26,12 +26,14 @@ var FUR_ELISE_DURATIONS = [30, 30, 30, 30, 30, 30, 30, 30, 60, 30, 30, 30, 60, 3
 var FUR_ELISE = {
 	"name": "Fur Elise",
 	"measures": 4,
+	"initial_offset": DURATION_PER_SHEET - 60,
 	"notes": _produce_notes(FUR_ELISE_NOTES, FUR_ELISE_DURATIONS)
 }
 
 var TUTORIAL = {
 	"name": "Tutorial",
 	"measures": 4,
+	"initial_offset": 0,
 	"notes": _produce_notes([7, 19, 7, 19], [120, 120, 120, 120])
 }
 
