@@ -16,6 +16,7 @@ func _ready():
 
 func play_song(song_name: String):
 	current_song = Songs.get_song(song_name)
+	SignalManager.demo_song_started.emit(current_song)
 	SignalManager.cancel_tutorial.emit()
 	reset()
 
@@ -45,13 +46,13 @@ func _process(_delta):
 
 func _play_note_idx(note_idx):
 	_release_last_note(note_idx)
-	var current_note = current_song.notes[note_idx].note
-	previous_time += current_song.notes[note_idx].duration
+	var current_note = current_song.notes[note_idx]
+	previous_time += current_note.duration
 	SignalManager.play_note_on_keyboard.emit(current_note)
 
 func _release_last_note(note_idx):
 	if note_idx > 0:
-		var previous_note = current_song.notes[note_idx - 1].note
+		var previous_note = current_song.notes[note_idx - 1]
 		SignalManager.release_note_on_keyboard.emit(previous_note)
 
 ## -- Signals -- ##

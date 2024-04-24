@@ -19,6 +19,7 @@ signal play_note_on_keyboard(note) # Used to play automatic songs
 signal play_tutorial_note_on_keyboard(note)
 signal release_note_on_keyboard(note)
 signal unlock_next_song(song_name)
+signal demo_song_started(song_name)
 signal demo_song_played(song_name)
 signal start_tutorial(song_name)
 signal tutorial_key_pressed_score(score) 

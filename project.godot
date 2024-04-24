@@ -24,6 +24,7 @@ SignalManager="*res://src/autoloads/signal_manager.gd"
 NpcDialogue="*res://src/autoloads/npc_dialogue.gd"
 Global="*res://src/autoloads/global.gd"
 Songs="*res://src/autoloads/songs.gd"
+Colors="*res://src/autoloads/colors.gd"
 
 [display]
 

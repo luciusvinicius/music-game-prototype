@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://src/partiture/partiture.gd" id="1_evd77"]
 [ext_resource type="Texture2D" uid="uid://qwhsprx4b0w5" path="res://assets/imgs/partiture/partiture_start_transparent.png" id="2_85jaw"]
+[ext_resource type="Texture2D" uid="uid://djwe80di1le2a" path="res://assets/imgs/partiture/notes/quarter.png" id="4_bpabe"]
 [ext_resource type="Texture2D" uid="uid://c3m4sjclqplrm" path="res://assets/imgs/partiture/partiture_end_transparent.png" id="5_gujhf"]
-[ext_resource type="Texture2D" uid="uid://djwe80di1le2a" path="res://assets/imgs/partiture/note_white.png" id="5_wbgi2"]
 
 [node name="Partiture" type="Control"]
 layout_mode = 3
@@ -12,32 +12,109 @@ script = ExtResource("1_evd77")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(0, -0.04)
+layout_mode = 0
 offset_left = -1.0
 offset_top = -34.0
 offset_right = 320.0
 offset_bottom = 102.0
 vertical_scroll_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+[node name="PartitureContainer" type="HBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Start" type="TextureRect" parent="ScrollContainer/HBoxContainer"]
+[node name="PartitureStart" type="TextureRect" parent="ScrollContainer/PartitureContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture = ExtResource("2_85jaw")
 expand_mode = 2
 
-[node name="NoteGray" type="TextureRect" parent="ScrollContainer/HBoxContainer/Start"]
-modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(16, 54)
-offset_left = 113.0
-offset_top = 50.0
-offset_right = 129.0
-offset_bottom = 104.0
-texture = ExtResource("5_wbgi2")
-
-[node name="PartitureEnd" type="TextureRect" parent="ScrollContainer/HBoxContainer"]
+[node name="PartitureEnd" type="TextureRect" parent="ScrollContainer/PartitureContainer"]
 custom_minimum_size = Vector2(192, 128)
 layout_mode = 2
 texture = ExtResource("5_gujhf")
+
+[node name="Notes" type="Control" parent="ScrollContainer/PartitureContainer"]
+visible = false
+layout_mode = 2
+
+[node name="NoteGray" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(16, 54)
+layout_mode = 0
+offset_left = -191.0
+offset_top = 58.0
+offset_right = -175.0
+offset_bottom = 112.0
+texture = ExtResource("4_bpabe")
+
+[node name="NoteGray2" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(16, 54)
+layout_mode = 0
+offset_left = -143.0
+offset_top = 50.0
+offset_right = -127.0
+offset_bottom = 104.0
+texture = ExtResource("4_bpabe")
+
+[node name="NoteGray3" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(16, 54)
+layout_mode = 0
+offset_left = -95.0
+offset_top = 42.0
+offset_right = -79.0
+offset_bottom = 96.0
+texture = ExtResource("4_bpabe")
+
+[node name="NoteGray4" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(16, 54)
+layout_mode = 0
+offset_left = -47.0
+offset_top = 74.0
+offset_right = -31.0
+offset_bottom = 128.0
+texture = ExtResource("4_bpabe")
+
+[node name="Positions" type="Node2D" parent="."]
+
+[node name="C" type="Marker2D" parent="Positions"]
+position = Vector2(16, 64)
+
+[node name="D" type="Marker2D" parent="Positions"]
+position = Vector2(16, 56)
+
+[node name="E" type="Marker2D" parent="Positions"]
+position = Vector2(16, 48)
+
+[node name="F" type="Marker2D" parent="Positions"]
+position = Vector2(16, 40)
+
+[node name="G" type="Marker2D" parent="Positions"]
+position = Vector2(16, 32)
+
+[node name="A" type="Marker2D" parent="Positions"]
+position = Vector2(16, 24)
+
+[node name="B" type="Marker2D" parent="Positions"]
+position = Vector2(16, 16)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 160.0
+offset_top = 64.0
+offset_right = 176.0
+offset_bottom = 118.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(16, 54)
+layout_mode = 2
+texture = ExtResource("4_bpabe")
+stretch_mode = 3

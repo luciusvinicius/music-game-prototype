@@ -27,17 +27,17 @@ func _ready():
 	SignalManager.play_tutorial_note_on_keyboard.connect(_play_tutorial_note)
 	SignalManager.release_note_on_keyboard.connect(_release_note)
 
-func _play_note(note):
-	var octave_idx = note / 12
+func _play_note(key):
+	var octave_idx = key.note / 12
 	var octave = octaves.get_child(octave_idx)
-	octave.press_key(MAP_TO_CORRECT_IDX[note % 12])
+	octave.press_key(MAP_TO_CORRECT_IDX[key.note % 12])
 
-func _play_tutorial_note(note):
-	var octave_idx = note / 12
+func _play_tutorial_note(key):
+	var octave_idx = key.note / 12
 	var octave = octaves.get_child(octave_idx)
-	octave.press_tutorial_key(MAP_TO_CORRECT_IDX[note % 12])
+	octave.press_tutorial_key(MAP_TO_CORRECT_IDX[key.note % 12])
 
-func _release_note(note):
-	var octave_idx = note / 12
+func _release_note(key):
+	var octave_idx = key.note / 12
 	var octave = octaves.get_child(octave_idx)
-	octave.release_key(MAP_TO_CORRECT_IDX[note % 12])
+	octave.release_key(MAP_TO_CORRECT_IDX[key.note % 12])

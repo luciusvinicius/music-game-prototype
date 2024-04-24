@@ -34,7 +34,7 @@ func _play_next_note():
 		finish()
 		return
 
-	var current_note = current_song.notes[note_to_play].note
+	var current_note = current_song.notes[note_to_play]
 	SignalManager.play_tutorial_note_on_keyboard.emit(current_note)
 
 

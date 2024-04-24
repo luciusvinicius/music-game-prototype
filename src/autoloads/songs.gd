@@ -1,7 +1,7 @@
 extends Node
 
 var song_level = 0
-
+const DURATION_PER_SHEET = 240
 
 # Structure is similar to beats, but instead of having a stream, it shows the note in the piano to be played.
 # SONGS will follow the following structure:
@@ -21,7 +21,7 @@ func get_song(song_name: String):
 
 
 var FUR_ELISE_NOTES = [16, 15, 16, 15, 16, 11, 14, 12, 9,      0, 4, 9, 11,  4, 8, 11, 12]
-var FUR_ELISE_DURATIONS = [60, 60, 60, 60, 60, 60, 60, 60, 120, 60, 60, 60, 120, 60, 60, 60, 120]
+var FUR_ELISE_DURATIONS = [30, 30, 30, 30, 30, 30, 30, 30, 60, 30, 30, 30, 60, 30, 30, 30, 60]
 
 var FUR_ELISE = {
 	"name": "Fur Elise",
