@@ -9,7 +9,9 @@ const EIGHTH = preload("res://assets/imgs/partiture/notes/eighth.png")
 const PARTITURE_NOTE_SCENE = preload("res://src/partiture/partiture_note.tscn")
 
 # Sheet
-const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transparent.png")
+const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transparent2.png")
+const PARTITURE_END = preload("res://assets/imgs/partiture/partiture_end_transparent2.png")
+
 
 # --- Nodes --- #
 @onready var positions = $Positions
@@ -19,9 +21,9 @@ const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transpa
 # --- Constants --- #
 const SCROLL_SPEED_RATIO = 3
 const NOTE_SPAWN_OFFSET_Y = 4
-const NOTE_SPAWN_OFFSET_X = 8 * 5
+const NOTE_SPAWN_OFFSET_X = 12 * 5
 const NOTE_MINIMUM_SIZE = Vector2(32, 54)
-const PARTITURE_MINIMUM_SIZE = Vector2(196, 128)
+const PARTITURE_MINIMUM_SIZE = Vector2(256, 128)
 const PARTITURE_SCROLL_OFFSET = 90
 const SCROLL_LOOK_AHEAD_OFFSET = 0
 
@@ -70,7 +72,12 @@ func load_song_partiture(song):
 		partiture_mid.texture = PARTITURE_MID
 		partiture_mid.custom_minimum_size = PARTITURE_MINIMUM_SIZE
 		partiture_container.add_child(partiture_mid)
-		partiture_container.move_child(partiture_mid, -3) # Add it to last, except the "partiture_end"
+		partiture_container.move_child(partiture_mid, -2) # Add it to last, except the "partiture_end"
+	
+	# Change partiture end size (because original it's too short, it is an illusion lmao)
+	var end_partiture = partiture_container.get_child(-1)
+	end_partiture.texture = PARTITURE_END
+	end_partiture.custom_minimum_size = PARTITURE_MINIMUM_SIZE
 
 func generate_tutorial_setup(_song):
 	var tween = get_tree().create_tween()
@@ -79,7 +86,8 @@ func generate_tutorial_setup(_song):
 	# Make the notes gray
 	for partiture in partiture_container.get_children():
 		for note in partiture.get_children():
-			tween.tween_property(note, "self_modulate", Colors.GRAY_TRANSPARENT, 0.5)
+			# tween.tween_property(note, "self_modulate", Colors.GRAY_TRANSPARENT, 0.5)
+			note.become_transparent()
 
 
 
@@ -96,7 +104,9 @@ func create_note(key, color = Colors.BLACK):
 	# note_node.texture = note_type2texture[Consts.NOTES_DURATION2NAME[key.duration]]
 	# note_node.custom_minimum_size = NOTE_MINIMUM_SIZE
 	# note_node.self_modulate = color
-	var note_node = PartitureNote.new(key, color)
+	# var note_node = PartitureNote.new(key, color)
+	var note_node = PARTITURE_NOTE_SCENE.instantiate()
+	note_node.initiate(key, color)
 
 	## Spawn in correct position
 	var octave_idx = key.note / 12 # Not used yet
@@ -124,8 +134,8 @@ func create_note(key, color = Colors.BLACK):
 	
 	# Animate scroll value
 	var scroll_distance 
-	if total_duration_played >= song_total_duration:
-		scroll_distance = 2 * scroll_container.size.x
+	if total_duration_played >= song_total_duration: # End of song
+		scroll_distance = 3 * scroll_container.size.x
 	else:
 		scroll_distance = float(total_duration_played) / song_total_duration * scroll_container.size.x + SCROLL_LOOK_AHEAD_OFFSET
 		scroll_distance += total_duration_played / Songs.DURATION_PER_SHEET * PARTITURE_SCROLL_OFFSET # Add partiture size offset

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cly1n2b8ksnbc"]
+[gd_scene load_steps=5 format=3 uid="uid://cly1n2b8ksnbc"]
 
 [ext_resource type="Script" path="res://src/partiture/partiture.gd" id="1_evd77"]
 [ext_resource type="Texture2D" uid="uid://qwhsprx4b0w5" path="res://assets/imgs/partiture/partiture_start_transparent.png" id="2_85jaw"]
-[ext_resource type="Texture2D" uid="uid://djwe80di1le2a" path="res://assets/imgs/partiture/notes/quarter.png" id="4_bpabe"]
 [ext_resource type="Texture2D" uid="uid://dr2hedbo2w4ji" path="res://assets/imgs/partiture/notes/half2.png" id="5_a1i1j"]
 [ext_resource type="Texture2D" uid="uid://c3m4sjclqplrm" path="res://assets/imgs/partiture/partiture_end_transparent.png" id="5_gujhf"]
 
@@ -15,7 +14,7 @@ script = ExtResource("1_evd77")
 layout_mode = 0
 offset_left = -1.0
 offset_top = -34.0
-offset_right = 320.0
+offset_right = 328.0
 offset_bottom = 102.0
 vertical_scroll_mode = 0
 
@@ -30,57 +29,9 @@ texture = ExtResource("2_85jaw")
 expand_mode = 2
 
 [node name="PartitureEnd" type="TextureRect" parent="ScrollContainer/PartitureContainer"]
-custom_minimum_size = Vector2(192, 128)
+custom_minimum_size = Vector2(196, 128)
 layout_mode = 2
 texture = ExtResource("5_gujhf")
-
-[node name="Notes" type="Control" parent="ScrollContainer/PartitureContainer"]
-visible = false
-layout_mode = 2
-
-[node name="NoteGray" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(16, 54)
-layout_mode = 0
-offset_left = -191.0
-offset_top = 58.0
-offset_right = -175.0
-offset_bottom = 112.0
-texture = ExtResource("4_bpabe")
-
-[node name="NoteGray2" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(16, 54)
-layout_mode = 0
-offset_left = -143.0
-offset_top = 50.0
-offset_right = -127.0
-offset_bottom = 104.0
-texture = ExtResource("4_bpabe")
-
-[node name="NoteGray3" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(16, 54)
-layout_mode = 0
-offset_left = -95.0
-offset_top = 42.0
-offset_right = -79.0
-offset_bottom = 96.0
-texture = ExtResource("4_bpabe")
-
-[node name="NoteGray4" type="TextureRect" parent="ScrollContainer/PartitureContainer/Notes"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(16, 54)
-layout_mode = 0
-offset_left = -47.0
-offset_top = 74.0
-offset_right = -31.0
-offset_bottom = 128.0
-texture = ExtResource("4_bpabe")
 
 [node name="Positions" type="Node2D" parent="."]
 

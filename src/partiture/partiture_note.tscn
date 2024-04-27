@@ -14,14 +14,15 @@ offset_bottom = -594.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_2go1t")
+expand_mode = 1
 script = ExtResource("1_kgjok")
 
 [node name="Sharp" type="Label" parent="."]
 visible = false
 layout_mode = 0
 offset_left = -16.0
-offset_top = 24.0
-offset_bottom = 56.0
+offset_top = 16.0
+offset_bottom = 48.0
 theme_override_fonts/font = ExtResource("3_a2qbv")
 theme_override_font_sizes/font_size = 32
 text = "#"
