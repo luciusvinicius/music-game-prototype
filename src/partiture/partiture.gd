@@ -11,7 +11,7 @@ const PARTITURE_NOTE_SCENE = preload("res://src/partiture/partiture_note.tscn")
 # Sheet
 const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transparent2.png")
 const PARTITURE_END = preload("res://assets/imgs/partiture/partiture_end_transparent2.png")
-
+const BLACK_RECTANGLE = preload("res://assets/imgs/partiture/black_rectangle.png")
 
 # --- Nodes --- #
 @onready var positions = $Positions
@@ -26,6 +26,12 @@ const NOTE_MINIMUM_SIZE = Vector2(32, 54)
 const PARTITURE_MINIMUM_SIZE = Vector2(256, 128)
 const PARTITURE_SCROLL_OFFSET = 90
 const SCROLL_LOOK_AHEAD_OFFSET = 0
+
+# Group eighth notes
+const BLACK_RECTANGLE_SIZE = Vector2(NOTE_SPAWN_OFFSET_X, 8)
+const GROUP_QUANTITY = 4
+var current_note_group = []
+var previous_partiture_idx = -1
 
 # --- Vars --- #
 var note_type2texture = {
@@ -52,6 +58,7 @@ func _ready():
 # 	# print(scroll_value)
 
 func load_song_partiture(song):
+	previous_partiture_idx = -1
 	scroll_container.scroll_horizontal = 0
 	fisrt_note = true
 
@@ -72,6 +79,12 @@ func load_song_partiture(song):
 		partiture_mid.texture = PARTITURE_MID
 		partiture_mid.custom_minimum_size = PARTITURE_MINIMUM_SIZE
 		partiture_container.add_child(partiture_mid)
+		var notes_node = Control.new()
+		notes_node.name = "Notes"
+		partiture_mid.add_child(notes_node)
+		var bars_node = Control.new()
+		bars_node.name = "Bars"
+		partiture_mid.add_child(bars_node)
 		partiture_container.move_child(partiture_mid, -2) # Add it to last, except the "partiture_end"
 	
 	# Change partiture end size (because original it's too short, it is an illusion lmao)
@@ -85,7 +98,7 @@ func generate_tutorial_setup(_song):
 
 	# Make the notes gray
 	for partiture in partiture_container.get_children():
-		for note in partiture.get_children():
+		for note in partiture.get_node("Notes").get_children():
 			# tween.tween_property(note, "self_modulate", Colors.GRAY_TRANSPARENT, 0.5)
 			note.become_transparent()
 
@@ -100,11 +113,6 @@ func create_note(key, color = Colors.BLACK):
 	if fisrt_note:
 		fisrt_note = false
 
-	# var note_node = TextureRect.new()
-	# note_node.texture = note_type2texture[Consts.NOTES_DURATION2NAME[key.duration]]
-	# note_node.custom_minimum_size = NOTE_MINIMUM_SIZE
-	# note_node.self_modulate = color
-	# var note_node = PartitureNote.new(key, color)
 	var note_node = PARTITURE_NOTE_SCENE.instantiate()
 	note_node.initiate(key, color)
 
@@ -117,21 +125,64 @@ func create_note(key, color = Colors.BLACK):
 	# Get partiture
 	var partiture_idx = total_duration_played / 240 + 1
 	var partiture = partiture_container.get_child(partiture_idx)
+	if partiture_idx != previous_partiture_idx:
+		previous_partiture_idx = partiture_idx
+		current_note_group.clear()
 
 	# Get X position
 	var x_offset = (x_distance_traveled / (Songs.DURATION_PER_SHEET / 4)) * NOTE_SPAWN_OFFSET_X
 	var y_offset = NOTE_SPAWN_OFFSET_Y - (octave_idx * 8 * 7)
 	note_node.position = position_marker.position + Vector2(x_offset, y_offset)
+	partiture.get_node("Notes").add_child(note_node)
+	
+	if note_node.is_eighth():
+		_group_eights(note_node, partiture)
 
-	partiture.add_child(note_node)
+	# Scroll Animation
+	_animate_scroll(key)
 
+
+func _group_eights(note, partiture):
+	if current_note_group.size() == GROUP_QUANTITY:
+		current_note_group.clear()
+	
+	current_note_group.append(note)
+	print("Current note group: ", current_note_group.size())
+	if current_note_group.size() == 1: 
+		return
+
+	# Update note texture to default
+	for note_node in current_note_group:
+		note_node.become_quarter_texture()
+
+	# Spawn a black rectangle if it doesn't exist
+
+	var black_rectangle_node 
+	if current_note_group.size() == 2:
+		# Create a new rectangle
+		black_rectangle_node = TextureRect.new()
+		black_rectangle_node.texture = BLACK_RECTANGLE
+		black_rectangle_node.custom_minimum_size = BLACK_RECTANGLE_SIZE
+		black_rectangle_node.position = current_note_group[0].get_bar_position()
+		# black_rectangle_node.size = BLACK_RECTANGLE_SIZE
+		black_rectangle_node.set_deferred("size", BLACK_RECTANGLE_SIZE)
+		black_rectangle_node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		partiture.get_node("Bars").add_child(black_rectangle_node)
+		print("Bar added in position: ", black_rectangle_node.position, " with Size: ", black_rectangle_node.size)
+	
+
+
+
+
+
+func _animate_scroll(key):
 	# Update total duration played
 	total_duration_played += key.duration
 
 	x_distance_traveled += key.duration
 	if x_distance_traveled >= Songs.DURATION_PER_SHEET:
 		x_distance_traveled = 0
-	
+
 	# Animate scroll value
 	var scroll_distance 
 	if total_duration_played >= song_total_duration: # End of song
@@ -146,10 +197,17 @@ func create_note(key, color = Colors.BLACK):
 
 
 
+
+
 # --- Other Functions --- #
 func _remove_notes(node):
 	for child in node.get_children():
-		child.queue_free()
+		for grandchild in child.get_children():
+			grandchild.queue_free()
+	# for child in node.get_node("Notes").get_children():
+	# 	child.queue_free()
+	# for child in node.get_node("Bars").get_children():
+	# 	child.queue_free()
 
 func _get_mid_partitures_size(song) -> int:
 	var total_duration = float(song.initial_offset)

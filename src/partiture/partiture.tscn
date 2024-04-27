@@ -28,10 +28,25 @@ layout_mode = 2
 texture = ExtResource("2_85jaw")
 expand_mode = 2
 
+[node name="Notes" type="Control" parent="ScrollContainer/PartitureContainer/PartitureStart"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="PartitureEnd" type="TextureRect" parent="ScrollContainer/PartitureContainer"]
 custom_minimum_size = Vector2(196, 128)
 layout_mode = 2
 texture = ExtResource("5_gujhf")
+
+[node name="Notes" type="Control" parent="ScrollContainer/PartitureContainer/PartitureEnd"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Bars" type="Control" parent="ScrollContainer/PartitureContainer/PartitureEnd"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Positions" type="Node2D" parent="."]
 

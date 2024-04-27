@@ -4,6 +4,8 @@ extends TextureRect
 
 ## --- Nodes --- ##
 @onready var sharp : Label = $Sharp
+@onready var bar = $Bar
+@onready var sharp_bar = $SharpBar
 
 ## --- Consts --- ##
 const NOTE_MINIMUM_SIZE = Vector2(32, 54)
@@ -47,7 +49,6 @@ func initiate(note_key, color):
 
 func _ready():
 	sharp.self_modulate = self_modulate
-	#size = NOTE_MINIMUM_SIZE
 	set_deferred("size", NOTE_MINIMUM_SIZE)
 	if is_reverted():
 		position.y += 8 * 4 + NOTE_SPAWN_OFFSET_Y
@@ -56,15 +57,6 @@ func _ready():
 		sharp.show()
 		position.x += NOTE_SHARP_OFFSET_X
 	
-	
-#func _ready():
-	#var note_idx = key.note % 12
-	#var note_order = Consts.NOTES_ORDER[note_idx]
-	#print("Children:", get_children())
-	#print("Sharp: ", $Sharp)
-	#if "#" in note_order:
-		#print("Sharp: ", sharp)
-		#sharp.show()
 
 func become_transparent():
 	var tween = get_tree().create_tween()
@@ -72,6 +64,17 @@ func become_transparent():
 	var sharp_tween = get_tree().create_tween()
 	sharp_tween.tween_property(sharp, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
 
+
+func become_quarter_texture():
+	var texture_name = "quarter"
+	if is_reverted():
+		texture_name += "-reverted"
+	texture = note_type2texture[texture_name]
+
+# --- Getters --- #
+func get_bar_position():
+	var bar_position = sharp_bar.position if is_reverted() else bar.position
+	return position + bar_position
 
 # --- Boolean Functions --- #
 func is_reverted():
