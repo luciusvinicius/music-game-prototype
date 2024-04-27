@@ -6,6 +6,7 @@ extends Control
 const HALF = preload("res://assets/imgs/partiture/notes/half2.png")
 const QUARTER = preload("res://assets/imgs/partiture/notes/quarter2.png")
 const EIGHTH = preload("res://assets/imgs/partiture/notes/eighth.png")
+const PARTITURE_NOTE_SCENE = preload("res://src/partiture/partiture_note.tscn")
 
 # Sheet
 const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transparent.png")
@@ -40,6 +41,7 @@ var x_distance_traveled := 0.0
 func _ready():
 	SignalManager.play_note_on_keyboard.connect(create_note)
 	SignalManager.demo_song_started.connect(load_song_partiture)
+	SignalManager.start_tutorial.connect(generate_tutorial_setup)
 
 # func _process(delta):
 # 	# if fisrt_note:
@@ -48,6 +50,7 @@ func _ready():
 # 	# print(scroll_value)
 
 func load_song_partiture(song):
+	scroll_container.scroll_horizontal = 0
 	fisrt_note = true
 
 	# Clean existence partiture
@@ -69,8 +72,19 @@ func load_song_partiture(song):
 		partiture_container.add_child(partiture_mid)
 		partiture_container.move_child(partiture_mid, -3) # Add it to last, except the "partiture_end"
 
+func generate_tutorial_setup(_song):
+	var tween = get_tree().create_tween()
+	tween.tween_property(scroll_container, "scroll_horizontal", 0, 1.0)
+
+	# Make the notes gray
+	for partiture in partiture_container.get_children():
+		for note in partiture.get_children():
+			tween.tween_property(note, "self_modulate", Colors.GRAY_TRANSPARENT, 0.5)
+
+
+
 func create_demo_note(key):
-	create_note(key, Colors.GRAY)
+	create_note(key, Colors.BLACK)
 
 
 func create_note(key, color = Colors.BLACK):
@@ -78,10 +92,11 @@ func create_note(key, color = Colors.BLACK):
 	if fisrt_note:
 		fisrt_note = false
 
-	var note_node = TextureRect.new()
-	note_node.texture = note_type2texture[Consts.NOTES_DURATION2NAME[key.duration]]
-	note_node.custom_minimum_size = NOTE_MINIMUM_SIZE
-	note_node.self_modulate = color
+	# var note_node = TextureRect.new()
+	# note_node.texture = note_type2texture[Consts.NOTES_DURATION2NAME[key.duration]]
+	# note_node.custom_minimum_size = NOTE_MINIMUM_SIZE
+	# note_node.self_modulate = color
+	var note_node = PartitureNote.new(key, color)
 
 	## Spawn in correct position
 	var octave_idx = key.note / 12 # Not used yet
@@ -97,11 +112,6 @@ func create_note(key, color = Colors.BLACK):
 	var x_offset = (x_distance_traveled / (Songs.DURATION_PER_SHEET / 4)) * NOTE_SPAWN_OFFSET_X
 	var y_offset = NOTE_SPAWN_OFFSET_Y - (octave_idx * 8 * 7)
 	note_node.position = position_marker.position + Vector2(x_offset, y_offset)
-
-	# Flip note
-	if octave_idx > 0:
-		note_node.flip_v = true
-		note_node.position.y += 8 * 4 + NOTE_SPAWN_OFFSET_Y
 
 	partiture.add_child(note_node)
 

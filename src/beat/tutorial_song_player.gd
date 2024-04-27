@@ -22,7 +22,7 @@ func finish():
 
 	# Release tutorial key if it's still pressed (used when a new song starts to play)
 	if current_song and note_to_play < current_song.notes.size():
-		var current_note = current_song.notes[note_to_play].note
+		var current_note = current_song.notes[note_to_play]
 		SignalManager.release_note_on_keyboard.emit(current_note)
 
 	current_song = null
