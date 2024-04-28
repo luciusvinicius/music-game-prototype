@@ -33,6 +33,11 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Bars" type="Control" parent="ScrollContainer/PartitureContainer/PartitureStart"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="PartitureEnd" type="TextureRect" parent="ScrollContainer/PartitureContainer"]
 custom_minimum_size = Vector2(196, 128)
 layout_mode = 2

@@ -4,8 +4,11 @@ extends TextureRect
 
 ## --- Nodes --- ##
 @onready var sharp : Label = $Sharp
-@onready var bar = $Bar
-@onready var sharp_bar = $SharpBar
+@onready var bar = $BarMarker
+@onready var sharp_bar = $SharpBarMarker
+@onready var stem = $Stem
+@onready var stem_marker = $StemMarker
+@onready var reverted_stem_marker = $RevertedStemMarker
 
 ## --- Consts --- ##
 const NOTE_MINIMUM_SIZE = Vector2(32, 54)
@@ -16,18 +19,22 @@ const REVERSED_SHARP_OFFSET_Y = -32
 # Notes
 const HALF = preload("res://assets/imgs/partiture/notes/half2.png")
 const HALF_REVERTED = preload("res://assets/imgs/partiture/notes/half2-reverted.png")
+const QUARTER_NO_STEM = preload("res://assets/imgs/partiture/notes/quarter2-nostem.png")
+const QUARTER_REVERTED_NO_STEM = preload("res://assets/imgs/partiture/notes/quarter2-reverted-nostem.png")
 const QUARTER = preload("res://assets/imgs/partiture/notes/quarter2.png")
 const QUARTER_REVERTED = preload("res://assets/imgs/partiture/notes/quarter2-reverted.png")
 const EIGHTH = preload("res://assets/imgs/partiture/notes/eighth.png")
 const EIGHTH_REVERTED = preload("res://assets/imgs/partiture/notes/eighth-reverted.png")
 
 var key
-
+var texture_name
 var note_type2texture = {
 	"half": HALF,
 	"half-reverted": HALF_REVERTED,
 	"quarter": QUARTER,
 	"quarter-reverted": QUARTER_REVERTED,
+	"quarter-no-stem": QUARTER_NO_STEM,
+	"quarter-no-stem-reverted": QUARTER_REVERTED_NO_STEM,
 	"eighth": EIGHTH,
 	"eighth-reverted": EIGHTH_REVERTED
 }
@@ -38,7 +45,7 @@ var note_type2texture = {
 func initiate(note_key, color):
 	key = note_key
 
-	var texture_name = Consts.NOTES_DURATION2NAME[key.duration]
+	texture_name = Consts.NOTES_DURATION2NAME[key.duration]
 
 	if is_reverted():
 		texture_name += "-reverted"
@@ -55,21 +62,41 @@ func _ready():
 		sharp.position.y += REVERSED_SHARP_OFFSET_Y
 	if is_sharp():
 		sharp.show()
-		position.x += NOTE_SHARP_OFFSET_X
-	
+		position.x += NOTE_SHARP_OFFSET_X	
 
 func become_transparent():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
 	var sharp_tween = get_tree().create_tween()
 	sharp_tween.tween_property(sharp, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
+	var stem_tween = get_tree().create_tween()
+	stem_tween.tween_property(stem, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
 
-
-func become_quarter_texture():
-	var texture_name = "quarter"
+func become_group_texture():
+	texture_name = "quarter-no-stem"
+	stem.show()
+	stem.rotation_degrees = 180
+	stem.position = stem_marker.position
+	stem.self_modulate = self_modulate
 	if is_reverted():
 		texture_name += "-reverted"
+		stem.rotation_degrees = 0
+		stem.position = reverted_stem_marker.position
+	
 	texture = note_type2texture[texture_name]
+
+func revert():
+	if "reverted" not in texture_name:
+		texture_name += "-reverted"
+		texture = note_type2texture[texture_name]
+		position.y += 8 * 4 + NOTE_SPAWN_OFFSET_Y
+		sharp.position.y += REVERSED_SHARP_OFFSET_Y
+		stem.rotation_degrees = 0
+		stem.position = reverted_stem_marker.position
+
+func update_stem_size(rectangle):
+	var y_diff = rectangle.global_position.y - stem.global_position.y
+	stem.size.y = abs(y_diff)
 
 # --- Getters --- #
 func get_bar_position():
@@ -78,7 +105,10 @@ func get_bar_position():
 
 # --- Boolean Functions --- #
 func is_reverted():
-	return key.note / 12 > 0
+	return key.note / 13 > 0
+
+func is_reverted_texture():
+	return "reverted" in texture_name
 
 func is_sharp():
 	var note = Consts.NOTES_ORDER[key.note % 12]

@@ -11,7 +11,7 @@ const PARTITURE_NOTE_SCENE = preload("res://src/partiture/partiture_note.tscn")
 # Sheet
 const PARTITURE_MID = preload("res://assets/imgs/partiture/partiture_mid_transparent2.png")
 const PARTITURE_END = preload("res://assets/imgs/partiture/partiture_end_transparent2.png")
-const BLACK_RECTANGLE = preload("res://assets/imgs/partiture/black_rectangle.png")
+const BLACK_RECTANGLE = preload("res://assets/imgs/partiture/white_rectangle.png")
 
 # --- Nodes --- #
 @onready var positions = $Positions
@@ -25,13 +25,14 @@ const NOTE_SPAWN_OFFSET_X = 12 * 5
 const NOTE_MINIMUM_SIZE = Vector2(32, 54)
 const PARTITURE_MINIMUM_SIZE = Vector2(256, 128)
 const PARTITURE_SCROLL_OFFSET = 90
-const SCROLL_LOOK_AHEAD_OFFSET = 0
+const SCROLL_LOOK_AHEAD_OFFSET = -100
+const SCROLL_DISTANCE_RATIO = 1.75
 
 # Group eighth notes
-const BLACK_RECTANGLE_SIZE = Vector2(NOTE_SPAWN_OFFSET_X, 8)
+const BLACK_RECTANGLE_SIZE = Vector2(12 * 2.6, 8)
+const BLACK_RECTANGLE_SHARP_SIZE = Vector2(12 * 3.25, 8)
+const BLACK_RECTANGLE_MINIMUM_DISTANCE = 16
 const GROUP_QUANTITY = 4
-var current_note_group = []
-var previous_partiture_idx = -1
 
 # --- Vars --- #
 var note_type2texture = {
@@ -44,6 +45,10 @@ var fisrt_note := true
 var song_total_duration := 0
 var total_duration_played := 0
 var x_distance_traveled := 0.0
+
+# Group notes
+var current_note_group = []
+var previous_partiture_idx = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -99,8 +104,11 @@ func generate_tutorial_setup(_song):
 	# Make the notes gray
 	for partiture in partiture_container.get_children():
 		for note in partiture.get_node("Notes").get_children():
-			# tween.tween_property(note, "self_modulate", Colors.GRAY_TRANSPARENT, 0.5)
 			note.become_transparent()
+		for bar in partiture.get_node("Bars").get_children():
+			print("Sussy bar: ", bar)
+			var bar_tween = get_tree().create_tween()
+			bar_tween.tween_property(bar, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
 
 
 
@@ -117,7 +125,7 @@ func create_note(key, color = Colors.BLACK):
 	note_node.initiate(key, color)
 
 	## Spawn in correct position
-	var octave_idx = key.note / 12 # Not used yet
+	var octave_idx = key.note / 12
 	var note_idx = key.note % 12
 	var note_order = Consts.NOTES_ORDER[note_idx]
 	var position_marker = positions.get_child(Consts.NOTES_REGULAR_ORDER[note_order])
@@ -137,6 +145,8 @@ func create_note(key, color = Colors.BLACK):
 	
 	if note_node.is_eighth():
 		_group_eights(note_node, partiture)
+	else:
+		current_note_group.clear()
 
 	# Scroll Animation
 	_animate_scroll(key)
@@ -147,13 +157,12 @@ func _group_eights(note, partiture):
 		current_note_group.clear()
 	
 	current_note_group.append(note)
-	print("Current note group: ", current_note_group.size())
 	if current_note_group.size() == 1: 
 		return
 
 	# Update note texture to default
 	for note_node in current_note_group:
-		note_node.become_quarter_texture()
+		note_node.become_group_texture()
 
 	# Spawn a black rectangle if it doesn't exist
 
@@ -162,17 +171,48 @@ func _group_eights(note, partiture):
 		# Create a new rectangle
 		black_rectangle_node = TextureRect.new()
 		black_rectangle_node.texture = BLACK_RECTANGLE
-		black_rectangle_node.custom_minimum_size = BLACK_RECTANGLE_SIZE
+		black_rectangle_node.self_modulate = Colors.BLACK
+		var rectangle_size = BLACK_RECTANGLE_SHARP_SIZE if note.is_sharp() else BLACK_RECTANGLE_SIZE
+		black_rectangle_node.custom_minimum_size = rectangle_size
 		black_rectangle_node.position = current_note_group[0].get_bar_position()
-		# black_rectangle_node.size = BLACK_RECTANGLE_SIZE
-		black_rectangle_node.set_deferred("size", BLACK_RECTANGLE_SIZE)
+		black_rectangle_node.set_deferred("size", rectangle_size)
 		black_rectangle_node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		partiture.get_node("Bars").add_child(black_rectangle_node)
-		print("Bar added in position: ", black_rectangle_node.position, " with Size: ", black_rectangle_node.size)
+		for note_node in current_note_group:
+			if note_node.is_reverted():
+				for note_node2 in current_note_group:
+					note_node2.revert()
+				break
+		# print("Bar added in position: ", black_rectangle_node.position, " with Size: ", black_rectangle_node.size)
 	
+	else:
+		# Update last bar size and position
+		black_rectangle_node = partiture.get_node("Bars").get_child(-1)
+		if note.is_sharp():
+			black_rectangle_node.size.x += BLACK_RECTANGLE_SHARP_SIZE.x
+		else:
+			if current_note_group[-2].is_sharp():
+				# Compensate for previous increment
+				black_rectangle_node.size.x = (current_note_group.size()-1) * BLACK_RECTANGLE_SIZE.x
+			else:
+				black_rectangle_node.size.x += BLACK_RECTANGLE_SIZE.x
+		
 
+		# If a note in the group is reverted, every note becomes reverted
+		for note_node in current_note_group:
+			if note_node.is_reverted():
+				for note_node2 in current_note_group:
+					note_node2.revert()
+				break
+			
+		# Offset bar to max/min position
+		if note.is_reverted_texture() and black_rectangle_node.position.y < note.position.y:
+			black_rectangle_node.position.y = note.position.y
+		elif not note.is_reverted_texture() and black_rectangle_node.position.y > note.position.y:
+			black_rectangle_node.position.y = note.position.y
 
-
+	for note_node in current_note_group:
+		note_node.update_stem_size(black_rectangle_node)
 
 
 func _animate_scroll(key):
@@ -188,8 +228,10 @@ func _animate_scroll(key):
 	if total_duration_played >= song_total_duration: # End of song
 		scroll_distance = 3 * scroll_container.size.x
 	else:
-		scroll_distance = float(total_duration_played) / song_total_duration * scroll_container.size.x + SCROLL_LOOK_AHEAD_OFFSET
-		scroll_distance += total_duration_played / Songs.DURATION_PER_SHEET * PARTITURE_SCROLL_OFFSET # Add partiture size offset
+		scroll_distance = float(total_duration_played) / song_total_duration * scroll_container.size.x * SCROLL_DISTANCE_RATIO + SCROLL_LOOK_AHEAD_OFFSET
+
+		# Add partiture size offset
+		scroll_distance += total_duration_played / Songs.DURATION_PER_SHEET * PARTITURE_SCROLL_OFFSET 
 	
 	var scroll_time = float(key.duration) / Songs.DURATION_PER_SHEET * SCROLL_SPEED_RATIO
 	var tween_scroll = get_tree().create_tween()
