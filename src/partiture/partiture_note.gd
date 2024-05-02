@@ -65,12 +65,18 @@ func _ready():
 		position.x += NOTE_SHARP_OFFSET_X	
 
 func become_transparent():
+	_change_color(Colors.GRAY_TRANSPARENT)
+
+func become_black():
+	_change_color(Colors.BLACK)
+
+func _change_color(color):
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
+	tween.tween_property(self, "self_modulate", color, 1.0)
 	var sharp_tween = get_tree().create_tween()
-	sharp_tween.tween_property(sharp, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
+	sharp_tween.tween_property(sharp, "self_modulate", color, 1.0)
 	var stem_tween = get_tree().create_tween()
-	stem_tween.tween_property(stem, "self_modulate", Colors.GRAY_TRANSPARENT, 1.0)
+	stem_tween.tween_property(stem, "self_modulate", color, 1.0)
 
 func become_group_texture():
 	texture_name = "quarter-no-stem"

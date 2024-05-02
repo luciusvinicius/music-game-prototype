@@ -23,6 +23,7 @@ signal demo_song_started(song_name)
 signal demo_song_played(song_name)
 signal start_tutorial(song_name)
 signal tutorial_key_pressed_score(score) 
+signal tutorial_key_pressed(key, is_correct) 
 signal tutorial_ended(song)
 
 # Tutorial Remake

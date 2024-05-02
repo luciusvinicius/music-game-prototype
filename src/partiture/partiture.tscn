@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cly1n2b8ksnbc"]
+[gd_scene load_steps=6 format=3 uid="uid://cly1n2b8ksnbc"]
 
 [ext_resource type="Script" path="res://src/partiture/partiture.gd" id="1_evd77"]
 [ext_resource type="Texture2D" uid="uid://qwhsprx4b0w5" path="res://assets/imgs/partiture/partiture_start_transparent.png" id="2_85jaw"]
 [ext_resource type="Texture2D" uid="uid://dr2hedbo2w4ji" path="res://assets/imgs/partiture/notes/half2.png" id="5_a1i1j"]
 [ext_resource type="Texture2D" uid="uid://c3m4sjclqplrm" path="res://assets/imgs/partiture/partiture_end_transparent.png" id="5_gujhf"]
+[ext_resource type="AudioStream" uid="uid://8ga1ptobyphi" path="res://assets/sounds/happy_kids.mp3" id="5_kqn04"]
 
 [node name="Partiture" type="Control"]
 layout_mode = 3
@@ -85,3 +86,7 @@ offset_top = 64.0
 offset_right = 176.0
 offset_bottom = 118.0
 texture = ExtResource("5_a1i1j")
+
+[node name="FinishedTutorialAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_kqn04")
+volume_db = -5.474
